@@ -344,8 +344,8 @@
   object-fit: cover;
   min-height: 720px;
 }
-.ai-enhanced-learning,
-.experience-a-new {
+.intro_main2,
+.intro_main1 {
   margin: 0;
 }
 .review {
@@ -361,13 +361,13 @@
   justify-content: flex-start;
   padding: 0 0 var(--padding-12xs-8);
 }
-.community-of-300,
-.marks-and-reach,
-.quizlet-is-the,
-.tests-digital-flashcards {
+.intro_main4,
+.intro_main6,
+.intro_main3,
+.intro_main5 {
   margin: 0;
 }
-.quizlet-is-the-container {
+.intro_main {
   position: relative;
   line-height: 28px;
 }
@@ -557,12 +557,18 @@
   }
 }
 
-.experience-a-new,
-.ai-enhanced-learning,
-.quizlet-is-the,
-.community-of-300,
-.tests-digital-flashcards,
-.marks-and-reach {
+@media screen and (min-width: 768px) {
+  .img img.svg-icon {
+    transform: scale(4); /* Phóng to ảnh lên 150% trên màn hình có độ rộng tối thiểu là 768px */
+  }
+}
+
+.intro_main1,
+.intro_main2,
+.intro_main3,
+.intro_main4,
+.intro_main5,
+.intro_main6 {
   color: black; /* Thiết lập màu chữ là đen */
 }
 
