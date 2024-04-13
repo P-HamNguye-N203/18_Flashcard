@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="/Flashcard/css/global.css" />
+    <link rel="stylesheet" href="/Flashcard/css/main.css" />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+      />
+  </head>
+  <body>
+    <div class="index"> <!-- Khối chính với lớp "index" -->
+      <main class="div-next">
+        <header class="header">
+          <div class="header-form">
+            <div class="name-parent">
+              <div class="name">
+                <div class="name-2">
+                  <div class="name-3">
+                    <div class="link" id="linkContainer">
+                      <div class="img">
+                        <img
+                          class="svg-icon"
+                          loading="lazy"
+                          alt=""
+                          src="/Flashcard/image/pic.png"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="link1" id="linkContainer">
+                <a href="main.html" class="home-link">
+                <div class="home">Home</div>
+              </a>
+                <div class="after"></div>
+              </div>
+              <div class="subject-areas-wrapper">
+                <div class="subject-areas">Subject areas</div>
+                <ul class="subject-list">
+                  <li><a href="#">Mathematics</a></li>
+                  <li><a href="#">English</a></li>
+                  <!-- Thêm các mục khác tương tự -->
+                </ul>
+              </div>
+            </div>
+            <div class="frame"></div>
+            <div class="after1"></div>
+            <div class="search-wrapper">
+              <div class="search">
+                <input
+                  class="combobox-listbox-search-la"
+                  placeholder="Search for anything"
+                  type="text"
+                />
+
+                <div class="img-search"></div>
+              </div>
+            </div>
+            <div class="login-signup">
+              <div class="login">
+                <div class="button-log-in">
+                  <button id="loginButton" class="span">
+                    <div class="log-in">Log in</div>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="signup">
+                <div class="button-sign-up">
+                  <button id="signupButton" class="span1">
+                    <div class="sign-up">Sign up</div>
+                  </button>
+                </div>
+              </div>
+          </div>
+        </header>
+        <section class="div">
+          <img
+            class="picture-icon"
+            loading="lazy"
+            alt=""
+            src="/Flashcard/image/main.jpg"
+          />
+
+          <div class="body">
+            <div class="text">
+              <div class="forrm-text">
+                <div class="text-1">
+                  <div class="heading-1">
+                    <b class="experience-a-new-container">
+                      <p class="experience-a-new">Experience a new era of</p>
+                      <p class="ai-enhanced-learning">AI-enhanced learning</p>
+                    </b>
+                  </div>
+                  <div class="heading-">
+                    <div class="quizlet-is-the-container">
+                      <p class="quizlet-is-the">
+                        Quizlet is the #1 global learning platform.* Join our
+                      </p>
+                      <p class="community-of-300">
+                        community of 300 million learners using Quizlet’s
+                        practice
+                      </p>
+                      <p class="tests-digital-flashcards">
+                        tests, digital flashcards and AI-powered tools to
+                        improve their
+                      </p>
+                      <p class="marks-and-reach">
+                        marks and reach their goals.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sign-up-now">
+                <div class = "color-sign-up">
+                  <div class="button-sign-up-now">
+                  <button id="signupNowButton" class="span2">
+                    <div class="sign-up-now1">Sign up now</div>
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const subjectAreas = document.querySelector('.subject-areas');
+        const subjectList = document.querySelector('.subject-list');
+        const loginButton = document.getElementById('loginButton');
+        const signupButton = document.getElementById('signupButton');
+        const signupNowButton = document.getElementById('signupNowButton');
+    
+        // Xử lý sự kiện khi nhấp vào "Subject areas"
+        subjectAreas.addEventListener('click', function() {
+          // Toggle hiển thị/ẩn danh sách môn học
+          if (subjectList.style.display === 'none') {
+            subjectList.style.display = 'block';
+          } else {
+            subjectList.style.display = 'none';
+          }
+        });
+    
+        // Xử lý sự kiện khi click vào nút Log in
+        if (loginButton) {
+          loginButton.addEventListener('click', function() {
+            window.location.href = 'login.html'; // Chuyển hướng đến trang login.html
+          });
+        }
+    
+        // Xử lý sự kiện khi click vào nút Sign up
+        if (signupButton) {
+          signupButton.addEventListener('click', function() {
+            window.location.href = 'signup.html'; // Chuyển hướng đến trang signup.html
+          });
+        }
+    
+        // Xử lý sự kiện khi click vào nút Sign up now
+        if (signupNowButton) {
+          signupNowButton.addEventListener('click', function() {
+            window.location.href = 'signup.html'; // Chuyển hướng đến trang signup.html
+          });
+        }
+    
+        // Xử lý sự kiện click bên ngoài để ẩn danh sách môn học khi không được click vào "Subject areas"
+        document.addEventListener('click', function(event) {
+          const targetElement = event.target;
+          const isSubjectAreasClicked = subjectAreas.contains(targetElement);
+          if (!isSubjectAreasClicked && subjectList && subjectList.style.display === 'block') {
+            subjectList.style.display = 'none';
+          }
+        });
+      });
+    </script>
+    
+  </body>
+</html>
