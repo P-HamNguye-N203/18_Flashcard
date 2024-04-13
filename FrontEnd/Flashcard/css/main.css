@@ -557,6 +557,12 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .img img.svg-icon {
+    transform: scale(4); /* Phóng to ảnh lên 150% trên màn hình có độ rộng tối thiểu là 768px */
+  }
+}
+
 .intro_main1,
 .intro_main2,
 .intro_main3,
