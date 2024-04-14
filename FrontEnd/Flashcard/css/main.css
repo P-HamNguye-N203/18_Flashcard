@@ -13,6 +13,7 @@
 .img {
   align-self: stretch;
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: center;
 }
@@ -31,12 +32,17 @@
 .name-3 {
   align-self: stretch;
   flex-direction: row;
+  padding: 0.5px 31.7px 0 0;
+  gap: 22px;
+  max-width: 100%;
 }
+
 .name,
 .name-2 {
   width: 95px;
   flex-direction: column;
 }
+
 .name {
   margin-top: -1px;
   width: 146px;
@@ -45,6 +51,62 @@
   padding: 21.4px var(--padding-5xs) var(--padding-2xl-5);
   box-sizing: border-box;
 }
+
+.name-3 {
+  align-self: stretch;
+  flex-direction: row;
+}
+
+.link,
+.name,
+.name-2,
+.name-3 {
+display: flex;
+align-items: flex-start;
+justify-content: flex-start;
+}
+
+.img,
+.link {
+flex-direction: column;
+}
+
+.link {
+  flex: 1;
+  cursor: pointer;
+}
+
+.img {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.svg-icon {
+  align-self: stretch;
+  height: 22.1px;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.link1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-xl-5) 0 22.4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.home-link {
+  text-decoration: none; /* Loại bỏ gạch chân */
+  color: inherit; /* Kế thừa màu chữ từ phần tử cha */
+}
+
 .home {
   position: relative;
   line-height: 20px;
@@ -76,6 +138,7 @@
   position: relative;
   cursor: pointer;
 }
+
 .subject-areas {
   cursor: pointer;
   align-self: stretch;
@@ -115,6 +178,7 @@
   transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
   font-size: 16px; /* Kích thước văn bản */
 }
+
 /* Hover state cho các liên kết */
 .subject-list li a:hover {
   background-color: #f0f0f0; /* Màu nền khi hover */
@@ -148,11 +212,40 @@
   position: relative;
   display: none;
 }
+
+
 .after1 {
   height: 4px;
   width: 112.2px;
   border-radius: var(--br-9xs) var(--br-9xs) 0 0;
 }
+
+.search,
+.search-wrapper {
+display: flex;
+align-items: flex-start;
+justify-content: flex-start;
+box-sizing: border-box;
+max-width: 100%;
+}
+
+.search-wrapper {
+  width: 723px;
+  flex-direction: column;
+  padding: 13px 0 0;
+}
+
+.search {
+  align-self: stretch;
+  border-radius: var(--br-57xl);
+  background-color: var(--FlashStudy-white-lilac);
+  border: 1px solid var(--FlashStudy-athens-gray);
+  flex-direction: row;
+  padding: 3.5px 6.1px 2.5px var(--padding-17xl);
+  min-height: 32px;
+}
+
+
 .combobox-listbox-search-la {
   width: 100%;
   border: 0;
@@ -175,6 +268,8 @@
   min-width: 250px;
   max-width: 100%;
 }
+
+
 .img-search {
   height: 16px;
   width: 16px;
@@ -186,6 +281,7 @@
 .search,
 .search-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
@@ -205,6 +301,7 @@
   flex-direction: column;
   padding: 13px 0 0;
 }
+
 .log-in {
   align-self: stretch;
   position: relative;
@@ -337,6 +434,7 @@
   color: var(--FlashStudy-pickled-bluewood);
   font-family: var(--FlashStudy-inter-semi-bold-1334);
 }
+
 .picture-icon {
   position: relative;
   overflow: hidden;
@@ -353,6 +451,7 @@
   position: relative;
   line-height: 56px;
 }
+
 .heading-1 {
   align-self: stretch;
   display: flex;
@@ -367,6 +466,7 @@
 .intro_main5 {
   margin: 0;
 }
+
 .intro_main {
   position: relative;
   line-height: 28px;
@@ -379,6 +479,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .heading- {
   align-self: stretch;
   min-height: 24px;
