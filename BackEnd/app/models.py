@@ -8,6 +8,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True,autoincrement=True)
     Name = Column(String(100), index=True, nullable=False)
+    Mail = Column(String(100), index=True, nullable=False)
     Password = Column(String(255), nullable=False)
     
     Package = relationship('Package', backref='user', lazy = True)
