@@ -1,12 +1,13 @@
 # PTUD_CK
+
 ## Installation
 
 ```
-// Clone Project 
+// Clone Project
 $ git clone https://github.com/P-HamNguye-N203/PTUD_CK.git
 
 // Run code BackEnd api
-$ cd BackEnd 
+$ cd BackEnd
 $ pip install -r requirements.txt
 $ uvicorn app.main:app --reload
 
@@ -18,14 +19,20 @@ $ uvicorn app.main:app --reload
 .
 ├──BackEnd
 │   ├──app
-│       ├──crud             // chứa các hàm bổ trợ 
+│       ├──crud             // chứa các hàm bổ trợ
 │       ├──db               // file cấu hình make DB session
 │       ├──main             // file chính chứa api và cấu hình uvicorn
-│       ├──models           // Database model      
+│       ├──models           // Database model
 │       └── schemas         // file định nghĩa cấu trúc dữ liệu từ HTTP requests, database queries và output API
 │   └── requirements.txt    // file chứa các thư viện để cài đặt qua pip install
 ├── FrontEnd
 │   └──Flashcard
-└── README.md 
+│       ├──main         // file html trang chính
+│       ├──login        // file html  cho trang login
+│       |──signup       // file html  cho trang signup
+│       ├──css          // chứa các file css
+│       ├──js           // chứa các file js
+│       └──image        // chứa các file image
+└── README.md
 
 ```
