@@ -11,18 +11,24 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
+    Mail: str
 
     class Config:
         orm_mode = True
+        
+class userLogin(BaseModel):
+    Mail: str
+    Password: str
         
 class Card(BaseModel):
     Info: str
     Descrip: str
 
-class CardRequest(BaseModel):
-    ListCard: List[Card]
-    NamePackage: str
-    UserId: int    
+class CardRepons(BaseModel):
+    Info: str
+    Descrip: str
+    id : int
+    PackageId: int 
     
 class CreatePackage(BaseModel):
     UserId: int
@@ -31,10 +37,7 @@ class CreatePackage(BaseModel):
 class PackageRespon(BaseModel):
     Name: str
     PackageId: int
-    
-class CreateCard(BaseModel):
-    ListCard: List[Card]
-    
+        
 class PackageCreate(BaseModel):
     Name: str
     UserId: int
