@@ -18,7 +18,7 @@ def get_db():
 
 @app.post("/users/create", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_name(db, name=user.Name)
+    db_user = crud.get_user_by_mail(db, name=user.Mail)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=user)
@@ -28,14 +28,11 @@ def listusers(db: Session = Depends(get_db)):
     return crud.get_users(db=db)
 
 @app.post("/users/login",response_model=schemas.User)
-def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_name(db, name= user.Name)
+def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
+    db_user = crud.login(db=db, user=user)
     if db_user:
-        if db_user.Password != user.Password:
-            raise HTTPException(status_code=400, detail="Password False")
-        return db_user
-    raise HTTPException(status_code=400, detail="Name False")
-
+        raise HTTPException(status_code=400, detail="Password or Mail False")
+    return db_user
 
 @app.post("/cards/create",response_model=schemas.Card)
 def create_card(card: schemas.CardRequest, db: Session = Depends(get_db)):
