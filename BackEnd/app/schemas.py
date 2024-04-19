@@ -42,3 +42,10 @@ class PackageCreate(BaseModel):
     Name: str
     UserId: int
     
+class ResponseModel(BaseModel):
+    Message: str
+    
+class CreateCard(BaseModel):
+    ListCards: List[Card]
+    PackageId: int
+    

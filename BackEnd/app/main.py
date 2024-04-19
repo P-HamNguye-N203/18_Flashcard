@@ -34,9 +34,12 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Password or Mail False")
     return db_user
 
-@app.post("/cards/create",response_model=schemas.Card)
-def create_card(card: schemas.CardRequest, db: Session = Depends(get_db)):
-    return crud.create_packcard(listcard=card.ListCard,db=db)
+@app.post("/cards/create",response_model=schemas.ResponseModel)
+def create_card(card: schemas.CreateCard, db: Session = Depends(get_db)):
+    db_cards = crud.create_packcards(listcard=card.ListCard,db=db,packageId=card.PackageId)
+    if db_cards:
+        return schemas.ResponseModel(Message = "Success")
+    return schemas.ResponseModel(Message = "ERROR")
 
 @app.get("/cards/listcard",response_model= List[schemas.Card])
 def list_cards_package(package_id:int , db: Session = Depends(get_db)):
@@ -46,9 +49,16 @@ def list_cards_package(package_id:int , db: Session = Depends(get_db)):
 def list_packages(user_id:int, db: Session = Depends(get_db)):
     return crud.get_packages(userId=user_id, db=db)
 
-@app.post("/packages/create")
-def create_package(package: schemas.Package, db: Session = Depends(get_db)):
-    pass
+@app.post("/cards/add-card",response_model=schemas.ResponseModel)
+def add_card(card: schemas.Card,packageId: int, db: Session = Depends(get_db)):
+    db_card = crud.create_card(card,packageId=packageId,db=db)
+    if db_card:
+        return schemas.ResponseModel(Message="success")
+    return schemas.ResponseModel(Message="ERROR")
+
+@app.post("/packages/create",response_model=schemas.PackageRespon)
+def create_package(package: schemas.CreatePackage, db: Session = Depends(get_db)):
+    return crud.create_package(package, db=db)
 
 @app.put("/users/update")
 def update_user(user: schemas.UserCreate, db: Session = Depends(get_db)):

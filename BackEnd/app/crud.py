@@ -40,6 +40,7 @@ def login(db: Session, user: schemas.userLogin):
     return db_user
     
 def update_user(db: Session, userId:int, user: schemas.UserCreate):
+    # chưa code xong 
     db_user = get_user_by_mail(db,user.Mail)
     pass
 
@@ -76,3 +77,4 @@ def get_cards(packageId: int,  db: Session):
 
 def get_packages(userId: int, db: Session):
     return db.query(Package).filter(Package.UserId == userId).all()
+
