@@ -52,56 +52,6 @@
   box-sizing: border-box;
 }
 
-.name-3 {
-  align-self: stretch;
-  flex-direction: row;
-}
-
-.link,
-.name,
-.name-2,
-.name-3 {
-display: flex;
-align-items: flex-start;
-justify-content: flex-start;
-}
-
-.img,
-.link {
-flex-direction: column;
-}
-
-.link {
-  flex: 1;
-  cursor: pointer;
-}
-
-.img {
-  align-self: stretch;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.svg-icon {
-  align-self: stretch;
-  height: 22.1px;
-  position: relative;
-  max-width: 100%;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.link1 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-xl-5) 0 22.4px;
-  position: relative;
-  cursor: pointer;
-}
-
 .home-link {
   text-decoration: none; /* Loại bỏ gạch chân */
   color: inherit; /* Kế thừa màu chữ từ phần tử cha */
@@ -111,23 +61,7 @@ flex-direction: column;
   position: relative;
   line-height: 20px;
   font-weight: 600;
-  display: inline-block;
   min-width: 40px;
-}
-.home-link {
-  text-decoration: none; /* Loại bỏ gạch chân */
-  color: inherit; /* Kế thừa màu chữ từ phần tử cha */
-}
-.after {
-  width: 100%;
-  height: 4px;
-  position: absolute;
-  margin: 0 !important;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: var(--br-9xs) var(--br-9xs) 0 0;
-  background-color: var(--FlashStudy-buddha-gold);
 }
 .link1 {
   display: flex;
@@ -139,167 +73,17 @@ flex-direction: column;
   cursor: pointer;
 }
 
-.subject-areas {
-  cursor: pointer;
-  align-self: stretch;
-  position: relative;
-  line-height: 20px;
-  font-weight: 600;
-  display: inline-block;
-  min-width: 88.4px;
-  white-space: nowrap;
-}
-
-.subject-list {
-  display: none; /* Ẩn danh sách ban đầu */
-  position: relative; /* Vị trí tuyệt đối */
-  top: 100%; /* Hiển thị ở phía dưới của "Subject areas" */
-  left: 0;
-  width: 200px; /* Độ rộng của dropdown */
-  background-color: #fff; /* Màu nền */
-  border: 1px solid #ccc; /* Viền */
-  border-top: none; /* Không có viền phía trên */
-  border-radius: 0 0 4px 4px; /* Bo góc */
-  z-index: 1000; /* Độ sâu z-index để hiển thị trên các thành phần khác */
-}
-
-/* Style cho từng mục trong danh sách */
-.subject-list li {
-  list-style: none; /* Ẩn dấu đầu dòng */
-  margin-bottom: 5px; /* Khoảng cách giữa các mục */
-}
-
-/* Style cho các liên kết trong danh sách */
-.subject-list li a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #333; /* Màu chữ */
-  transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
-  font-size: 16px; /* Kích thước văn bản */
-}
-
-/* Hover state cho các liên kết */
-.subject-list li a:hover {
-  background-color: #f0f0f0; /* Màu nền khi hover */
-}
-
-.name-parent,
-.subject-areas-wrapper {
+.name-parent{
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
-}
-.subject-areas-wrapper {
-  width: 88.4px;
-  flex-direction: column;
-  padding: var(--padding-xl-5) 0 0;
-  text-align: center;
-  font-size: var(--FlashStudy-inter-semi-bold-1334-size);
-  color: var(--FlashStudy-ebony-clay);
 }
 .name-parent {
   flex-direction: row;
   padding: 0.5px 31.7px 0 0;
   gap: 22px;
   max-width: 100%;
-}
-.after1,
-.frame {
-  height: 16px;
-  width: 16px;
-  position: relative;
-  display: none;
-}
-
-
-.after1 {
-  height: 4px;
-  width: 112.2px;
-  border-radius: var(--br-9xs) var(--br-9xs) 0 0;
-}
-
-.search,
-.search-wrapper {
-display: flex;
-align-items: flex-start;
-justify-content: flex-start;
-box-sizing: border-box;
-max-width: 100%;
-}
-
-.search-wrapper {
-  width: 723px;
-  flex-direction: column;
-  padding: 13px 0 0;
-}
-
-.search {
-  align-self: stretch;
-  border-radius: var(--br-57xl);
-  background-color: var(--FlashStudy-white-lilac);
-  border: 1px solid var(--FlashStudy-athens-gray);
-  flex-direction: row;
-  padding: 3.5px 6.1px 2.5px var(--padding-17xl);
-  min-height: 32px;
-}
-
-
-.combobox-listbox-search-la {
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background-color: var(--FlashStudy-white-lilac);
-  height: 32px;
-  flex: 1;
-  border-radius: var(--br-5xs);
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-5xs) 0 11px;
-  box-sizing: border-box;
-  font-family: var(--FlashStudy-inter-semi-bold-1334);
-  font-weight: 600;
-  font-size: var(--font-size-base-4);
-  color: var(--FlashStudy-comet);
-  min-width: 250px;
-  max-width: 100%;
-}
-
-
-.img-search {
-  height: 16px;
-  width: 16px;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-  display: none;
-}
-.search,
-.search-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  max-width: 100%;
-}
-.search {
-  align-self: stretch;
-  border-radius: var(--br-57xl);
-  background-color: var(--FlashStudy-white-lilac);
-  border: 1px solid var(--FlashStudy-athens-gray);
-  flex-direction: row;
-  padding: 3.5px 6.1px 2.5px var(--padding-17xl);
-  min-height: 32px;
-}
-.search-wrapper {
-  width: 723px;
-  flex-direction: column;
-  padding: 13px 0 0;
 }
 
 .log-in {
@@ -563,7 +347,7 @@ max-width: 100%;
 }
 .body {
   width: 100%;
-  margin: 0 !important;
+  margin: 0;
   position: absolute;
   height: calc(100% - 129px);
   top: 64.1px;
@@ -617,12 +401,6 @@ max-width: 100%;
     box-sizing: border-box;
   }
 }
-@media screen and (max-width: 1050px) {
-  .review {
-    font-size: 34px;
-    line-height: 45px;
-  }
-}
 @media screen and (max-width: 750px) {
   .forrm-text,
   .text-1 {
@@ -672,19 +450,3 @@ max-width: 100%;
 .intro_main6 {
   color: black; /* Thiết lập màu chữ là đen */
 }
-
-/* Định nghĩa hình ảnh cho từng môn học */
-.subject-list li:nth-child(1) a {
-  background-image: url('/Flashcard/image/math.jpg');
-  background-size: 20px 20px; /* Kích thước ảnh */
-  background-repeat: no-repeat; /* Không lặp lại */
-  padding-left: 25px; /* Để icon cách văn bản */
-}
-
-.subject-list li:nth-child(2) a {
-  background-image: url('/Flashcard/image/english.jpg');
-  background-size: 20px 20px; /* Kích thước ảnh */
-  background-repeat: no-repeat; /* Không lặp lại */
-  padding-left: 25px; /* Để icon cách văn bản */
-}
-/* Thêm các mục khác tương tự cho các môn học khác */
