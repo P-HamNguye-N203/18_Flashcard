@@ -255,7 +255,7 @@
   position: relative;
   line-height: 28px;
 }
-.forrm-text,
+.form-text,
 .heading-,
 .text-1 {
   display: flex;
@@ -269,7 +269,7 @@
   min-height: 24px;
   font-size: var(--font-size-lgi-1);
 }
-.forrm-text,
+.form-text,
 .text-1 {
   width: 100%;
 }
@@ -277,7 +277,7 @@
   gap: var(--gap-base);
   max-width: 560px;
 }
-.forrm-text {
+.form-text {
   padding: var(--padding-28xl-2) var(--padding-29xl) var(--padding-29xl);
   box-sizing: border-box;
   max-width: 656px;
@@ -402,17 +402,17 @@
   }
 }
 @media screen and (max-width: 750px) {
-  .forrm-text,
+  .form-text,
   .text-1 {
     max-width: 100%;
   }
-  .forrm-text {
+  .form-text {
     padding-left: var(--padding-5xl);
     padding-right: var(--padding-5xl);
   }
   .body,
   .div-next,
-  .forrm-text {
+  .form-text {
     box-sizing: border-box;
   }
   .body {
