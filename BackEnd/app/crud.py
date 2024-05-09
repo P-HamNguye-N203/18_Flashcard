@@ -31,7 +31,7 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
-def login(db: Session, user: schemas.userLogin):
+def login(db: Session, user: schemas.UserLogin):
     db_user = get_user_by_mail(db,user.Mail)
     if not db_user:
         return None
@@ -99,6 +99,19 @@ def create_card(card: schemas.Card, PackageId: int, db: Session):
 def get_cards(packageId: int,  db: Session):
     return db.query(Card).filter(Card.PackageId == packageId).all()
 
+def update_card(db: Session, card_id: int, card: schemas.CardUpdate):
+    db_card = db.query(Card).filter(Card.id == card_id).first()
+    if db_card is None:
+        return None
+    
+    # Update card attributes if they are provided
+    if card.Info:
+        db_card.Info = card.Info
+    if card.Descrip:
+        db_card.Descrip = card.Descrip
+    
+    db.commit()
+    return db_card
 
 def get_packages(userId: int, db: Session):
     return db.query(Package).filter(Package.UserId == userId).all()

@@ -16,13 +16,17 @@ class User(UserBase):
     class Config:
         orm_mode = True
         
-class userLogin(BaseModel):
+class UserLogin(BaseModel):
     Mail: str
     Password: str
         
 class Card(BaseModel):
     Info: str
     Descrip: str
+
+class CardUpdate(BaseModel):
+    Info: Optional[str] = None
+    Descrip: Optional[str] = None
 
 class CardRepons(BaseModel):
     Info: str

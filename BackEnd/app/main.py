@@ -45,7 +45,7 @@ def create_card(card: schemas.CreateCard, db: Session = Depends(get_db)):
 def list_cards_package(package_id:int , db: Session = Depends(get_db)):
     return crud.get_cards(packageId=package_id, db=db)
 
-@app.get("/packages/listpackage",response_model= List[schemas.Package])
+@app.get("/packages/listpackage",response_model= List[schemas.PackageRespon])
 def list_packages(user_id:int, db: Session = Depends(get_db)):
     return crud.get_packages(userId=user_id, db=db)
 
@@ -77,8 +77,13 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     return {"message": "User deleted successfully"}
 
 @app.put("/cards/update")
-def update_card(card: schemas.Card, db: Session = Depends(get_db)):
-    pass
+def update_card(card_id: int, card: schemas.CardUpdate, db: Session = Depends(get_db)):
+    db_card = crud.get_card(db, card_id=card_id)
+    if db_card is None:
+        raise HTTPException(status_code=404, detail="Card not found")
+    
+    updated_card = crud.update_card(db=db, db_card=db_card, card=card)
+    return updated_card
 
 @app.delete("/cards/delete")
 def delete_card(id: int,db: Session = Depends(get_db)):
