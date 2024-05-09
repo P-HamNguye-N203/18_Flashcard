@@ -48,4 +48,9 @@ class ResponseModel(BaseModel):
 class CreateCard(BaseModel):
     ListCards: List[Card]
     PackageId: int
+
+class UserUpdate(BaseModel):
+    Name: Optional[str] = None
+    Mail: Optional[str] = None
+    Password: Optional[str] = None
     
