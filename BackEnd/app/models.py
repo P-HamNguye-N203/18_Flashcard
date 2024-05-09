@@ -13,7 +13,6 @@ class User(Base):
     
     Package = relationship('Package', backref='user', lazy = True)
     
-
 class Package(Base):
     __tablename__ = "package"
 

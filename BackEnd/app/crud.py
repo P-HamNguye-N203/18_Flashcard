@@ -39,10 +39,35 @@ def login(db: Session, user: schemas.userLogin):
         return None
     return db_user
     
-def update_user(db: Session, userId:int, user: schemas.UserCreate):
-    # chưa code xong 
-    db_user = get_user_by_mail(db,user.Mail)
-    pass
+# def update_user(db: Session, userId:int, user: schemas.UserCreate):
+#     # chưa code xong 
+#     db_user = get_user_by_mail(db,user.Mail)
+#     pass
+
+def update_user(db: Session, user_id: int, user: schemas.UserUpdate):
+    db_user = db.query(User).filter(User.id == user_id).first()
+    if db_user is None:
+        return None
+    
+    # Update user attributes if they are provided
+    if user.Name:
+        db_user.Name = user.Name
+    if user.Mail:
+        db_user.Mail = user.Mail
+    if user.Password:
+        db_user.Password = get_password_hash(user.Password)
+    
+    db.commit()
+    return db_user
+
+def delete_user(db: Session, user_id: int):
+    db_user = db.query(User).filter(User.id == user_id).first()
+    if db_user is None:
+        return None
+    
+    db.delete(db_user)
+    db.commit()
+    return db_user
 
 def create_package(package: schemas.PackageCreate , db: Session):
     db_package = Package(Name= package.Name, UserId= package.UserId)
