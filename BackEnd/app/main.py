@@ -86,12 +86,18 @@ def update_card(card_id: int, card: schemas.CardUpdate, db: Session = Depends(ge
     return updated_card
 
 @app.delete("/cards/delete")
-def delete_card(id: int,db: Session = Depends(get_db)):
-    pass
+def delete_card(card_id: int, db: Session = Depends(get_db)):
+    db_card = crud.get_card(db, card_id=card_id)
+    if db_card is None:
+        raise HTTPException(status_code=404, detail="Card not found")
+    
+    crud.delete_card(db=db, db_card=db_card)
+    return {"message": "Card deleted successfully"}
 
 @app.delete("/cards/delete_all")
 def delete_all_cards(db: Session = Depends(get_db)):
-    pass
+    crud.delete_all_cards(db=db)
+    return {"message": "All cards deleted successfully"}
 
 @app.delete("/package/delete")
 def delete_package(db: Session = Depends(get_db)):
