@@ -113,6 +113,14 @@ def update_card(db: Session, card_id: int, card: schemas.CardUpdate):
     db.commit()
     return db_card
 
+def delete_card(db: Session, db_card: Card):
+    db.delete(db_card)
+    db.commit()
+
+def delete_all_cards(db: Session):
+    db.query(Card).delete()
+    db.commit()
+
 def get_packages(userId: int, db: Session):
     return db.query(Package).filter(Package.UserId == userId).all()
 
