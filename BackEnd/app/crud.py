@@ -124,3 +124,6 @@ def delete_all_cards(db: Session):
 def get_packages(userId: int, db: Session):
     return db.query(Package).filter(Package.UserId == userId).all()
 
+def delete_package(db: Session, db_package: Package):
+    db.delete(db_package)
+    db.commit()
