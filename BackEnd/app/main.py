@@ -100,7 +100,12 @@ def delete_all_cards(db: Session = Depends(get_db)):
     return {"message": "All cards deleted successfully"}
 
 @app.delete("/package/delete")
-def delete_package(db: Session = Depends(get_db)):
-    pass
+def delete_package(package_id: int, db: Session = Depends(get_db)):
+    package = crud.get_package(db, package_id=package_id)
+    if package is None:
+        raise HTTPException(status_code=404, detail="Package not found")
+    
+    crud.delete_package(db=db, db_package=package)
+    return {"message": "Package deleted successfully"}
 
 
