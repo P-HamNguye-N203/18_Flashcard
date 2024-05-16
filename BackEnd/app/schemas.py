@@ -40,12 +40,11 @@ class CreatePackage(BaseModel):
     
 class PackageRespon(BaseModel):
     Name: str
-    PackageId: int
+    id: int
+
+class UserId(BaseModel):
+    id: int
         
-class PackageCreate(BaseModel):
-    Name: str
-    UserId: int
-    
 class ResponseModel(BaseModel):
     Message: str
     

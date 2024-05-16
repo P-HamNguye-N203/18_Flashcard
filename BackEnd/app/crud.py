@@ -8,12 +8,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
-
 def get_user_by_name(db: Session, name: str):
     return db.query(User).filter(User.Name == name).first()
 
 def get_user_by_mail(db: Session, email: str):
-    return db.query(User).filter(User.Email == email).first()
+    return db.query(User).filter(User.Mail == email).first()
 
 def get_users(db: Session):
     return db.query(User).all()
@@ -69,11 +68,11 @@ def delete_user(db: Session, user_id: int):
     db.commit()
     return db_user
 
-def create_package(package: schemas.PackageCreate , db: Session):
+def create_package(package: schemas.CreatePackage , db: Session):
     db_package = Package(Name= package.Name, UserId= package.UserId)
     db.add(db_package)
     db.commit()
-    db.refresh(db_package)
+    # db.refresh(db_package)
     return db_package
 
 def create_packcards(listcard: List[schemas.Card], db: Session, packageId: int):
@@ -82,8 +81,8 @@ def create_packcards(listcard: List[schemas.Card], db: Session, packageId: int):
             for card in listcard:
                 db_card = Card(Info=card.Info, Descrip=card.Descrip, PackageId=packageId)
                 db.add(db_card)
-            db.commit()
-            db.refresh(db_card)
+        db.commit()
+        db.refresh(db_card)
     except Exception as e:
         db.rollback()
         raise e
