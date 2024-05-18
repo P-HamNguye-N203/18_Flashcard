@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException,Query
 import sqlalchemy
 from sqlalchemy.orm import Session
 from typing import List
@@ -70,9 +70,13 @@ def list_cards_package(package_id:schemas.UserId , db: Session = Depends(get_db)
     return crud.get_cards(packageId=package_id.id, db=db)
 
 # API lấy thông tin các package
-@app.get("/packages/listpackage",response_model= List[schemas.PackageRespon])
-async def list_packages(user_id:schemas.UserId, db: Session = Depends(get_db)):
-    return crud.get_packages(userId=user_id.id, db=db)
+# API lấy thông tin các package
+@app.get("/packages/listpackage", response_model=List[schemas.PackageRespon])
+async def list_packages(user_id: int = Query(...), db: Session = Depends(get_db)):
+    packages = crud.get_packages(userId=user_id, db=db)
+    if not isinstance(packages, list):
+        raise HTTPException(status_code=422, detail="Expected a list of packages")
+    return packages
 
 # @app.post("/cards/add-card",response_model=schemas.ResponseModel)
 # def add_card(card: schemas.Card,packageId: int, db: Session = Depends(get_db)):

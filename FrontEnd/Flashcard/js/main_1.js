@@ -5,19 +5,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.querySelector('.combobox-listbox-search-la');
   const searchButton = document.getElementById('searchButton');
   const dataContainer = document.getElementById('dataContainer');
+  const createPackageForm = document.getElementById('createPackageForm');
+  const packageNameInput = document.getElementById('packageName');
 
   userButton.addEventListener('click', function() {
-    // Toggle hiển thị dropdown
     dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
   });
 
   logoutButton.addEventListener('click', function(event) {
-    event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
-    // Chuyển hướng về trang main.html khi nhấn vào nút "Logout"
+    event.preventDefault();
     window.location.href = '/FrontEnd/Flashcard/main.html';
   });
 
-  // Bổ sung sự kiện click bên ngoài để ẩn dropdown
   document.addEventListener('click', function(event) {
     if (!userButton.contains(event.target) && !dropdownContent.contains(event.target)) {
       dropdownContent.style.display = 'none';
@@ -29,18 +28,35 @@ document.addEventListener('DOMContentLoaded', function() {
     performSearch(searchTerm);
   });
 
+  createPackageForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    createPackage(packageNameInput.value.trim());
+  });
+
   function performSearch(searchTerm) {
-    fetch('/FrontEnd/Flashcard/data.txt')
-      .then(response => response.json()) // Đọc dữ liệu dưới dạng JSON
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+      console.error('User ID not found. Please log in.');
+      return;
+    }
+
+    fetch(`http://127.0.0.1:8000/packages/listpackage?user_id=${userId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
+        console.log('Data received:', data);
         let filteredRecords = [];
 
         if (searchTerm) {
-          filteredRecords = data.data.filter(record => record.Name.toLowerCase().includes(searchTerm.toLowerCase()));
+          filteredRecords = data.filter(record => record.Name.toLowerCase().includes(searchTerm.toLowerCase()));
         } else {
-          filteredRecords = data.data; // Hiển thị tất cả nếu không có từ khóa tìm kiếm
+          filteredRecords = data;
         }
-        
+
         displayData(filteredRecords);
       })
       .catch(error => {
@@ -48,9 +64,55 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  function displayData(records) {
-    dataContainer.innerHTML = ''; // Xóa dữ liệu hiện tại
+  function createPackage(packageName) {
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+      console.error('User ID not found. Please log in.');
+      return;
+    }
   
+    const requestData = {
+      UserId: userId, // Thêm trường UserId vào dữ liệu gửi đi
+      Name: packageName
+    };
+  
+    fetch('http://127.0.0.1:8000/packages/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(errorData => {
+          console.error('Error details:', errorData);
+          throw new Error(`Failed to create package: ${JSON.stringify(errorData)}`);
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Package created:', data);
+      performSearch(''); // Refresh the package list
+    })
+    .catch(error => {
+      console.error('Error creating package:', error);
+    });
+  }
+  
+
+  function displayData(records) {
+    dataContainer.innerHTML = '';
+
+    if (!Array.isArray(records)) {
+      console.error('Error: Data is not an array', records);
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'Error: Data format is incorrect.';
+      dataContainer.appendChild(errorMessage);
+      return;
+    }
+
     if (records.length === 0) {
       const noResultsMessage = document.createElement('p');
       noResultsMessage.textContent = 'No results found.';
@@ -58,18 +120,18 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       records.forEach(record => {
         const name = record.Name;
-  
-        // Tạo một phần tử div mới cho từng tên
+
         const nameBox = document.createElement('div');
-        nameBox.classList.add('nameBox'); // Thêm lớp CSS cho phần tử div
-  
+        nameBox.classList.add('nameBox');
+
         const nameElement = document.createElement('p');
         nameElement.textContent = name;
-  
-        nameBox.appendChild(nameElement); // Thêm phần tử p (chứa tên) vào phần tử div
-        dataContainer.appendChild(nameBox); // Thêm phần tử div vào dataContainer
+
+        nameBox.appendChild(nameElement);
+        dataContainer.appendChild(nameBox);
       });
     }
   }
-  
+
+  performSearch('');
 });

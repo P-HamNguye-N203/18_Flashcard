@@ -317,7 +317,7 @@ max-width: 100%;
 
 /* Định dạng cho từng ô chứa tên */
 .nameBox {
-  width: 300px; /* Độ rộng cố định */
+  width: 300px;
   margin: 10px;
   padding: 15px;
   border: 1px solid #ddd;
@@ -325,7 +325,8 @@ max-width: 100%;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-} 
+  transition: transform 0.3s ease;
+}
 
 .nameBox:hover {
   transform: translateY(-5px);
@@ -333,3 +334,39 @@ max-width: 100%;
 
 
 /* end info */
+.create-package-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Đặt chiều rộng tối đa cho form */
+  margin: 0 auto; /* Đảm bảo form nằm giữa màn hình */
+}
+
+.create-package-form input[type="text"],
+.create-package-form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.create-package-form button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.create-package-form button:hover {
+  background-color: #0056b3;
+}
+.create-package-form input[type="text"]::placeholder {
+  color: #999;
+}
+

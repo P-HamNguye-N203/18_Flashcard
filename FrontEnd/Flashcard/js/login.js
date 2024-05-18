@@ -18,7 +18,8 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         return response.json(); // Parse the response as JSON if login is successful
     })
     .then(data => {
-        window.location.href = 'main_1.html'; // Redirect to main.html
+        localStorage.setItem('user_id', data.id); // Save user_id to localStorage
+        window.location.href = 'main_1.html'; // Redirect to main_1.html
     })
     .catch(error => {
         console.error('Error:', error);
