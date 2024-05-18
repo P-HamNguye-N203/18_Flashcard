@@ -1,57 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Sign up</title>
-		<link rel="stylesheet" href="css/signup.css" />
-        <link rel="stylesheet" href="css/global.css">
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
-        />
-	</head>
-	<body>
-		<div class="container">
-			<div class="form-image">
-				<figure>
-					<img src="image/signup-image.jpg" alt="" />
-				</figure>
-			</div>
-			<div class="form-content">
-				<h1>Sign up</h1>
-				<form>
-					<div class="form-control">
-						<input type="text" id="username" placeholder="Username" />
-						<span></span>
-						<small></small>
-					</div>
-					<div class="form-control">
-						<input type="email" id="email" placeholder="Email" />
-						<span></span>
-						<small></small>
-					</div>
-					<div class="form-control">
-						<input type="password" id="password" placeholder="Password" />
-						<span></span>
-						<small></small>
-					</div>
-					<div class="form-control">
-						<input
-							type="password"
-							id="password2"
-							placeholder="Confirm password"
-						/>
-						<span></span>
-						<small></small>
-					</div>
-					<input type="submit" value="Sign up" />
-					<!-- <div class="home"><a href="#">Home</a></div> -->
-				</form>
-			</div>
-		</div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+    <link rel="stylesheet" href="css/signup.css" />
+    <link rel="stylesheet" href="css/global.css">
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+    />
+</head>
+<body>
+    <div class="container">
+        <div class="form-image">
+            <figure>
+                <img src="image/signup-image.jpg" alt="" />
+            </figure>
+        </div>
+        <div class="form-content">
+            <h1>Sign up</h1>
+            <form id="signup-form">
+                <div class="form-control">
+                    <input type="text" id="username" placeholder="Username" />
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="email" id="email" placeholder="Email" />
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="password" id="password" placeholder="Password" />
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="password" id="password2" placeholder="Confirm password" />
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" id="login-button" onclick="location.href='login.html'">Quay về</button>
+                    <input type="submit" value="Sign up" />
+                </div>
+            </form>
+        </div>
+    </div>
 
-		<script src="js/login.js"></script>
-	</body>
+    <script src="js/signup.js"></script>
+</body>
 </html>

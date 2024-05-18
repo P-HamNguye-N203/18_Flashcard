@@ -1,4 +1,5 @@
 from fastapi import Depends, FastAPI, HTTPException
+import sqlalchemy
 from sqlalchemy.orm import Session
 from typing import List
 from app import crud, models, schemas
@@ -13,7 +14,8 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:8080",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:5501"
     # Thêm các URL frontend khác nếu cần
 ]
 
