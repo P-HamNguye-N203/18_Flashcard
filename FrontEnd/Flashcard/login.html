@@ -1,45 +1,43 @@
 <!DOCTYPE html>
-<!--  https://colorlib.com/etc/regform/colorlib-regform-7/ -->
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Register Form Validator</title>
-		<link rel="stylesheet" href="css/login.css" />
-        <link rel="stylesheet" href="css/global.css">
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
-        />
-	</head>
-	<body>
-		<div class="container">
-			<div class="form-content">
-				<h1>Login</h1>
-				<form>
-					<div class="form-control">
-						<input type="text" id="username" placeholder="Username" />
-						<span></span>
-						<small></small>
-					</div>
-					<div class="form-control">
-						<input type="password" id="password" placeholder="Password" />
-						<span></span>
-						<small></small>
-					</div>
-					<input type="submit" value="Login" />
-					<div class="signup_link">Not a member? <a href="Signup.html">Signup</a></div>
-				</form>
-			</div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/global.css">
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+    />
+</head>
+<body>
+    <div class="container">
+        <div class="form-content">
+            <h1>Login</h1>
+            <form id="login-form">
+                <div class="form-control">
+                    <input type="text" id="username" placeholder="Username" required />
+                    <span></span>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <input type="password" id="password" placeholder="Password" required />
+                    <span></span>
+                    <small></small>
+                </div>
+                <input type="submit" value="Login" />
+                <div class="signup_link">Not a member? <a href="Signup.html">Signup</a></div>
+            </form>
+        </div>
+        <div class="form-image">
+            <figure>
+                <img src="image/signin-image.jpg" alt="">
+            </figure>
+        </div>
+    </div>
 
-			<div class="form-image">
-				<figure>
-					<img src="image/signin-image.jpg" alt="">
-				</figure>
-			</div>
-		</div>
-
-		<script src="js/login.js"></script>
-	</body>
+    <script src="js/login.js"></script>
+</body>
 </html>
