@@ -62,6 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function checkPasswordsMatch(input1, input2) {
         if (input1.value !== input2.value) {
             showError(input2, 'Mật khẩu không khớp');
+            return false;
+        } else {
+            showSuccess(input2);
+            return true;
         }
     }
 
@@ -114,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
             checkLength(username, 3, 15);
             checkLength(password, 6, 25);
             checkEmail(email);
-            checkPasswordsMatch(password, password2);
-
-            submitFormData();
+            if (checkPasswordsMatch(password, password2)) {
+                submitFormData();
+            }
         }
     });
 });
