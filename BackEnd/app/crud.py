@@ -112,9 +112,14 @@ def update_card(db: Session, card_id: int, card: schemas.CardUpdate):
     db.commit()
     return db_card
 
-def delete_card(db: Session, db_card: Card):
+def delete_card(db: Session, card_id: int):
+    db_card = db.query(Card).filter(Card.id == card_id).first()
+    if db_card is None:
+        return None
+    
     db.delete(db_card)
     db.commit()
+    return db_card
 
 def delete_all_cards(db: Session):
     db.query(Card).delete()
