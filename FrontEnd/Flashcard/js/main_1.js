@@ -102,42 +102,167 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function deletePackage(packageId) {
+    fetch(`http://127.0.0.1:8000/packages/delete?package_id=${packageId}`, {
+      method: 'DELETE',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to delete package: ${response.statusText}`);
+      }
+      console.log(`Package with id ${packageId} deleted successfully.`);
+      performSearch(''); // Refresh the package list
+    })
+    .catch(error => {
+      console.error('Error deleting package:', error);
+    });
+  }
+
+  function showEditForm(packageId, nameElement) {
+    const editForm = document.createElement('form');
+    editForm.innerHTML = `
+        <input type="text" value="${nameElement.textContent}" required />
+        <button type="submit">Save</button>
+    `;
+    editForm.onsubmit = function(event) {
+        event.preventDefault();
+        const newPackageName = editForm.querySelector('input').value;
+        updatePackageName(packageId, newPackageName, nameElement);
+    };
+    nameElement.parentNode.replaceChild(editForm, nameElement);
+  }
+
+  function updatePackageName(packageId, newPackageName, nameElement) {
+    fetch(`http://127.0.0.1:8000/packages/update?package_id=${packageId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Name: newPackageName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Update response:', data);
+        nameElement.textContent = newPackageName;
+        nameElement.parentNode.replaceChild(nameElement, nameElement.parentNode.querySelector('form'));
+    })
+    .catch(error => console.error('Failed to update package name:', error));
+  }
+
   function displayData(records) {
     dataContainer.innerHTML = '';
 
-    if (!Array.isArray(records)) {
-      console.error('Error: Data is not an array', records);
-      const errorMessage = document.createElement('p');
-      errorMessage.textContent = 'Error: Data format is incorrect.';
-      dataContainer.appendChild(errorMessage);
-      return;
-    }
-
-    if (records.length === 0) {
-      const noResultsMessage = document.createElement('p');
-      noResultsMessage.textContent = 'No results found.';
-      dataContainer.appendChild(noResultsMessage);
-    } else {
-      records.forEach(record => {
-        const name = record.Name;
-
+    records.forEach(record => {
         const nameBox = document.createElement('div');
         nameBox.classList.add('nameBox');
 
         const nameElement = document.createElement('p');
-        nameElement.textContent = name;
+        nameElement.textContent = record.Name;
+        nameElement.classList.add('editableName');
 
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.classList.add('edit-button');
+        editButton.onclick = function(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+            if (editButton.textContent === 'Edit') {
+                nameElement.innerHTML = `<input type='text' value='${nameElement.textContent}' class='edit-input'>`;
+                editButton.textContent = 'Save';
+            } else {
+                const newName = nameElement.querySelector('input').value;
+                updatePackageName(record.id, newName, nameElement);
+                editButton.textContent = 'Edit';
+            }
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+        deleteButton.onclick = function(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+            deletePackage(record.id);
+        };
+
+        const goToPackageButton = document.createElement('button');
+        goToPackageButton.textContent = 'View Package'; // Thay đổi văn bản của nút
+        goToPackageButton.classList.add('view-package-button');
+        goToPackageButton.onclick = function(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+            localStorage.setItem('package_id', record.id);
+            window.location.href = '/FrontEnd/Flashcard/package.html'; // Chuyển hướng đến trang mong muốn
+        };
+
+        // Thêm nút vào `nameBox`
         nameBox.appendChild(nameElement);
-        dataContainer.appendChild(nameBox);
+        nameBox.appendChild(editButton);
+        nameBox.appendChild(deleteButton);
+        nameBox.appendChild(goToPackageButton); // Thêm nút mới vào nameBox
 
-        // Add click event to store the package_id and navigate to package page
-        nameBox.addEventListener('click', function() {
-          localStorage.setItem('package_id', record.id); // Store the package_id in localStorage
-          window.location.href = '/FrontEnd/Flashcard/package.html';
-        });
-      });
-    }
-  }
+        // Xóa sự kiện click trên `nameBox`
+        nameBox.removeEventListener('click', nameBoxClickHandler);
+
+        dataContainer.appendChild(nameBox);
+    });
+}
+
+// Xóa hàm xử lý sự kiện click trên `nameBox`
+function nameBoxClickHandler(event) {
+    event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+    localStorage.setItem('package_id', record.id);
+    window.location.href = '/FrontEnd/Flashcard/package.html';
+}
+function displayData(records) {
+  dataContainer.innerHTML = '';
+
+  records.forEach(record => {
+      const nameBox = document.createElement('div');
+      nameBox.classList.add('nameBox');
+
+      const nameElement = document.createElement('p');
+      nameElement.textContent = record.Name;
+      nameElement.classList.add('editableName');
+
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.classList.add('edit-button');
+      editButton.onclick = function(event) {
+          event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+          if (editButton.textContent === 'Edit') {
+              nameElement.innerHTML = `<input type='text' value='${nameElement.textContent}' class='edit-input'>`;
+              editButton.textContent = 'Save';
+          } else {
+              const newName = nameElement.querySelector('input').value;
+              updatePackageName(record.id, newName, nameElement);
+              editButton.textContent = 'Edit';
+          }
+      };
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.classList.add('delete-button');
+      deleteButton.onclick = function(event) {
+          event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+          deletePackage(record.id);
+      };
+
+      const goToPackageButton = document.createElement('button');
+      goToPackageButton.textContent = 'View Package'; // Thay đổi văn bản của nút
+      goToPackageButton.classList.add('view-package-button');
+      goToPackageButton.onclick = function(event) {
+          event.stopPropagation(); // Ngăn chặn sự kiện click từ lan truyền ra ngoài
+          localStorage.setItem('package_id', record.id);
+          window.location.href = '/FrontEnd/Flashcard/package.html'; // Chuyển hướng đến trang mong muốn
+      };
+
+      // Thêm nút vào `nameBox`
+      nameBox.appendChild(nameElement);
+      nameBox.appendChild(editButton);
+      nameBox.appendChild(deleteButton);
+      nameBox.appendChild(goToPackageButton); // Thêm nút mới vào nameBox
+
+      dataContainer.appendChild(nameBox);
+  });
+}
 
   performSearch('');
 });
