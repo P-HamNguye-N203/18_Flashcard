@@ -136,11 +136,7 @@ def delete_all_cards(db: Session = Depends(get_db)):
     return schemas.ResponseModel(Message="All cards deleted successfully")
 
 # API xóa package
-<<<<<<< HEAD
-@app.delete("/packages/delete")
-=======
 @app.delete("/packages/delete", response_model=schemas.ResponseModel)
->>>>>>> 23b8b710250f51548e1ddf82e22517747144ba43
 def delete_package(package_id: int, db: Session = Depends(get_db)):
     package = crud.get_package(db, package_id=package_id)
     if package is None:

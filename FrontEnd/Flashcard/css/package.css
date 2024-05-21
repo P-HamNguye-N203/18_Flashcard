@@ -369,4 +369,6 @@ max-width: 100%;
 .create-package-form input[type="text"]::placeholder {
   color: #999;
 }
-
+.create-card-form button {
+  margin-right: 10px; /* Adds spacing between buttons */
+}

@@ -70,12 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('User ID not found. Please log in.');
       return;
     }
-  
+
     const requestData = {
-      UserId: userId, // Thêm trường UserId vào dữ liệu gửi đi
+      UserId: userId, // Add UserId to the request data
       Name: packageName
     };
-  
+
     fetch('http://127.0.0.1:8000/packages/create', {
       method: 'POST',
       headers: {
@@ -94,17 +94,17 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log('Package created:', data);
+      localStorage.setItem('package_id', data.id); // Store the created package_id in localStorage
       performSearch(''); // Refresh the package list
     })
     .catch(error => {
       console.error('Error creating package:', error);
     });
   }
-  
 
   function displayData(records) {
     dataContainer.innerHTML = '';
-  
+
     if (!Array.isArray(records)) {
       console.error('Error: Data is not an array', records);
       const errorMessage = document.createElement('p');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
       dataContainer.appendChild(errorMessage);
       return;
     }
-  
+
     if (records.length === 0) {
       const noResultsMessage = document.createElement('p');
       noResultsMessage.textContent = 'No results found.';
@@ -120,27 +120,24 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       records.forEach(record => {
         const name = record.Name;
-  
+
         const nameBox = document.createElement('div');
         nameBox.classList.add('nameBox');
-  
+
         const nameElement = document.createElement('p');
         nameElement.textContent = name;
-  
+
         nameBox.appendChild(nameElement);
         dataContainer.appendChild(nameBox);
-      });
-  
-      // Thêm sự kiện click vào mỗi ô chứa tên package
-      const nameBoxes = document.querySelectorAll('.nameBox');
-      nameBoxes.forEach(nameBox => {
+
+        // Add click event to store the package_id and navigate to package page
         nameBox.addEventListener('click', function() {
+          localStorage.setItem('package_id', record.id); // Store the package_id in localStorage
           window.location.href = '/FrontEnd/Flashcard/package.html';
         });
       });
     }
   }
-  
 
   performSearch('');
 });
