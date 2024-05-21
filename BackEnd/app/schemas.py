@@ -21,6 +21,7 @@ class UserLogin(BaseModel):
     Password: str
         
 class Card(BaseModel):
+    id: int
     Info: str
     Descrip: str
 
@@ -57,3 +58,5 @@ class UserUpdate(BaseModel):
     Mail: Optional[str] = None
     Password: Optional[str] = None
     
+class DeleteUser(BaseModel):
+    user_id: int

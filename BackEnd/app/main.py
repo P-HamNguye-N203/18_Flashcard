@@ -66,8 +66,9 @@ def create_card(card: schemas.CreateCard, db: Session = Depends(get_db)):
 
 # API lấy thông tin các card
 @app.get("/cards/listcard",response_model= List[schemas.Card])
-def list_cards_package(package_id:schemas.UserId , db: Session = Depends(get_db)):
-    return crud.get_cards(packageId=package_id.id, db=db)
+async def list_cards_package(package_id: int = Query(...), db: Session = Depends(get_db)):
+    card = crud.get_cards(packageId=package_id, db=db)
+    return card
 
 # API lấy thông tin các package
 @app.get("/packages/listpackage", response_model=List[schemas.PackageRespon])
@@ -92,56 +93,60 @@ def create_package(package: schemas.CreatePackage, db: Session = Depends(get_db)
     return save_crud
 
 # API chỉnh sửa thông tin user
-@app.put("/users/update", response_model=schemas.User)
+@app.put("/users/update/", response_model=schemas.User)
 def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, user_id=user_id)
+    db_user = crud.update_user(db=db, user_id=user_id, user=user)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return crud.update_user(db=db, db_user=db_user, user=user)
+    return db_user
 
 # API xóa user
-@app.delete("/users/detele")
-def delete_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, user_id=user_id)
+@app.delete("/users/delete", response_model=schemas.ResponseModel)
+def delete_user(user: schemas.DeleteUser, db: Session = Depends(get_db)):
+    print(f"Request to delete user with ID: {user.user_id}")  # Debug: in ID của người dùng cần xóa
+
+    db_user = crud.delete_user(db=db, user_id=user.user_id)
+    print("User deleted:", db_user)  # Debug: in thông tin người dùng đã xóa
+    
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    crud.delete_user(db=db, db_user=db_user)
-    return {"message": "User deleted successfully"}
+    
+    return schemas.ResponseModel(Message="Success")
 
 # API chỉnh sửa thông tin card
-@app.put("/cards/update")
+@app.put("/cards/update", response_model= schemas.Card)
 def update_card(card_id: int, card: schemas.CardUpdate, db: Session = Depends(get_db)):
-    db_card = crud.get_card(db, card_id=card_id)
-    if db_card is None:
+    updated_card = crud.update_card(db=db, card_id=card_id, card=card)
+    if updated_card is None:
         raise HTTPException(status_code=404, detail="Card not found")
-    
-    updated_card = crud.update_card(db=db, db_card=db_card, card=card)
     return updated_card
 
 # API xóa card
-@app.delete("/cards/delete")
+@app.delete("/cards/delete", response_model=schemas.ResponseModel)
 def delete_card(card_id: int, db: Session = Depends(get_db)):
-    db_card = crud.get_card(db, card_id=card_id)
-    if db_card is None:
+    delete_card = crud.delete_card(db=db, card_id=card_id)
+    if delete_card is None:
         raise HTTPException(status_code=404, detail="Card not found")
-    
-    crud.delete_card(db=db, db_card=db_card)
-    return {"message": "Card deleted successfully"}
+    return schemas.ResponseModel(Message="Card deleted successfully")
 
 # API xóa tất cả card
-@app.delete("/cards/delete_all")
+@app.delete("/cards/delete_all", response_model=schemas.ResponseModel)
 def delete_all_cards(db: Session = Depends(get_db)):
     crud.delete_all_cards(db=db)
-    return {"message": "All cards deleted successfully"}
+    return schemas.ResponseModel(Message="All cards deleted successfully")
 
 # API xóa package
+<<<<<<< HEAD
 @app.delete("/packages/delete")
+=======
+@app.delete("/packages/delete", response_model=schemas.ResponseModel)
+>>>>>>> 23b8b710250f51548e1ddf82e22517747144ba43
 def delete_package(package_id: int, db: Session = Depends(get_db)):
     package = crud.get_package(db, package_id=package_id)
     if package is None:
         raise HTTPException(status_code=404, detail="Package not found")
     
     crud.delete_package(db=db, db_package=package)
-    return {"message": "Package deleted successfully"}
+    return schemas.ResponseModel(Message="Package deleted successfully")
 
 
