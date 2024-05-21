@@ -140,8 +140,8 @@ def delete_card(card_id: int, db: Session = Depends(get_db)):
 
 # API xóa tất cả card trong package
 @app.delete("/cards/delete-all", response_model=schemas.ResponseModel)
-def delete_all_card(package_id: int, db: Session = Depends(get_db)):
-    delete_card = crud.delete_all_card(db=db, package_id=package_id)
+def delete_all_cards(package_id: int, db: Session = Depends(get_db)):
+    delete_card = crud.delete_all_cards(db=db, package_id=package_id)
     if delete_card is None:
         raise HTTPException(status_code=404, detail="Card not found")
     return schemas.ResponseModel(Message="Card deleted successfully")
@@ -149,7 +149,7 @@ def delete_all_card(package_id: int, db: Session = Depends(get_db)):
 # API xóa package
 @app.delete("/packages/delete", response_model=schemas.ResponseModel)
 def delete_package(package_id: int, db: Session = Depends(get_db)):
-    delete_package = crud.delete_package(db=db, db_package=package_id)
+    delete_package = crud.delete_package(db=db, package_id=package_id)
     if delete_package is None:
         raise HTTPException(status_code=404, detail="Package not found")
     return schemas.ResponseModel(Message="Package deleted successfully")

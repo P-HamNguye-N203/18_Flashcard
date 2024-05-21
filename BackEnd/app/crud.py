@@ -112,6 +112,18 @@ def update_card(db: Session, card_id: int, card: schemas.CardUpdate):
     db.commit()
     return db_card
 
+def update_package(db: Session, package_id: int, package: schemas.PackageUpdate):
+    db_package = db.query(Package).filter(Package.id == package_id).first()
+    if db_package is None:
+        return None
+    
+    # Update package attributes if they are provided
+    if package.Name:
+        db_package.Name = package.Name
+    
+    db.commit()
+    return db_package
+
 def delete_card(db: Session, card_id: int):
     db_card = db.query(Card).filter(Card.id == card_id).first()
     if db_card is None:
