@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.querySelector('.combobox-listbox-search-la');
   const searchButton = document.getElementById('searchButton');
   const dataContainer = document.getElementById('dataContainer');
-  const createPackageForm = document.getElementById('createPackageForm');
-  const packageNameInput = document.getElementById('packageName');
+  const createCardForm = document.getElementById('createCardForm'); // Đổi lại id của form tạo thẻ
+  const cardNameInput = document.getElementById('cardName'); // Đổi lại id của input tên thẻ
 
   userButton.addEventListener('click', function() {
     dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
@@ -28,11 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
     performSearch(searchTerm);
   });
 
-  createPackageForm.addEventListener('submit', function(event) {
+  createCardForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    createPackage(packageNameInput.value.trim());
+    createCard(cardNameInput.value.trim()); // Gọi hàm tạo thẻ với tên đã nhập
   });
 
+  // Hàm tìm kiếm danh sách thẻ
   function performSearch(searchTerm) {
     const userId = localStorage.getItem('user_id');
     if (!userId) {
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    fetch(`http://127.0.0.1:8000/packages/listpackage?user_id=${userId}`)
+    fetch(`http://127.0.0.1:8000/cards/listcard?user_id=${userId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -64,19 +65,25 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  function createPackage(packageName) {
-    const userId = localStorage.getItem('user_id');
-    if (!userId) {
-      console.error('User ID not found. Please log in.');
+  // Hàm tạo thẻ mới
+  function createCard(cardName) {
+    const packageId = localStorage.getItem('Id'); // Lấy packageId từ localStorage
+    if (!packageId) {
+      console.error('Package ID not found. Please select a package.');
       return;
     }
   
     const requestData = {
-      UserId: userId, // Thêm trường UserId vào dữ liệu gửi đi
-      Name: packageName
+      ListCards: [
+        {
+          Info: cardName, // Thông tin thẻ là tên thẻ đã nhập
+          Descrip: "" // Mặc định mô tả là chuỗi rỗng
+        }
+      ],
+      PackageId: packageId // PackageId là packageId đã lấy
     };
   
-    fetch('http://127.0.0.1:8000/packages/create', {
+    fetch('http://127.0.0.1:8000/cards/create', { // Thay đổi endpoint thành '/cards/create'
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -87,24 +94,24 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!response.ok) {
         return response.json().then(errorData => {
           console.error('Error details:', errorData);
-          throw new Error(`Failed to create package: ${JSON.stringify(errorData)}`);
+          throw new Error(`Failed to create card: ${JSON.stringify(errorData)}`);
         });
       }
       return response.json();
     })
     .then(data => {
-      console.log('Package created:', data);
-      performSearch(''); // Refresh the package list
+      console.log('Card created:', data);
+      performSearch(''); // Refresh the card list
     })
     .catch(error => {
-      console.error('Error creating package:', error);
+      console.error('Error creating card:', error);
     });
   }
-  
 
+  // Hàm hiển thị dữ liệu thẻ
   function displayData(records) {
     dataContainer.innerHTML = '';
-  
+
     if (!Array.isArray(records)) {
       console.error('Error: Data is not an array', records);
       const errorMessage = document.createElement('p');
@@ -112,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
       dataContainer.appendChild(errorMessage);
       return;
     }
-  
+
     if (records.length === 0) {
       const noResultsMessage = document.createElement('p');
       noResultsMessage.textContent = 'No results found.';
@@ -120,27 +127,18 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       records.forEach(record => {
         const name = record.Name;
-  
+
         const nameBox = document.createElement('div');
         nameBox.classList.add('nameBox');
-  
+
         const nameElement = document.createElement('p');
         nameElement.textContent = name;
-  
+
         nameBox.appendChild(nameElement);
         dataContainer.appendChild(nameBox);
       });
-  
-      // Thêm sự kiện click vào mỗi ô chứa tên package
-      const nameBoxes = document.querySelectorAll('.nameBox');
-      nameBoxes.forEach(nameBox => {
-        nameBox.addEventListener('click', function() {
-          window.location.href = '/FrontEnd/Flashcard/package.html';
-        });
-      });
     }
   }
-  
 
   performSearch('');
 });

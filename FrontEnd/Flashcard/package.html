@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <link rel="stylesheet" href="/FrontEnd/Flashcard/css/global.css" />
+  <link rel="stylesheet" href="/FrontEnd/Flashcard/css/main_1.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" />
+</head>
+<body>
+<div class="index">
+  <main class="div-next">
+    <header class="header">
+      <div class="header-form">
+        <div class="name-parent">
+          <div class="name">
+            <div class="name-2">
+              <div class="name-3">
+                <div class="link" id="linkContainer">
+                  <div class="img">
+                    <img class="svg-icon" loading="lazy" alt="" src="/FrontEnd/Flashcard/image/learn-quickly-high-resolution-logo.svg" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="link1" id="linkContainer">
+            <a href="/FrontEnd/Flashcard/main.html" class="home-link">
+              <div class="home">Home</div>
+            </a>
+          </div>
+        </div>
+        <div class="search-wrapper">
+          <div class="search">
+            <input class="combobox-listbox-search-la" placeholder="Search for anything" type="text" />
+            <button type="button" id="searchButton" class="search-button">
+              <img src="/FrontEnd/Flashcard/image/magnifying-glass-solid.svg" alt="Search" style="height: 20px; width: 20px;" />
+            </button>
+          </div>
+        </div>
+        <div class="login-signup">
+          <div class="user-menu">
+            <button id="userButton" class="user-button">
+              <img src="/FrontEnd/Flashcard/image/main.jpg" alt="User Avatar" class="avatar" />
+            </button>
+            <div class="dropdown-content" style="display: none;">
+              <a href="#" id="logoutButton">Log out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <ul class="tilesWrap">
+      <div id="dataContainer"></div>
+    </ul>
+    <!-- Form tạo thẻ -->
+    <div class="create-card-form">
+      <form id="createCardForm">
+        <input type="text" id="cardName" placeholder="Card Name" required>
+        <input type="text" id="cardDescription" placeholder="Card Description">
+        <button type="submit">Create Card</button>
+      </form>
+    </div>
+  </main>
+</div>
+<script src="/FrontEnd/Flashcard/js/main_1.js"></script>
+</body>
+</html>

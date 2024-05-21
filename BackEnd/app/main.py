@@ -70,13 +70,12 @@ def list_cards_package(package_id:schemas.UserId , db: Session = Depends(get_db)
     return crud.get_cards(packageId=package_id.id, db=db)
 
 # API lấy thông tin các package
-# API lấy thông tin các package
 @app.get("/packages/listpackage", response_model=List[schemas.PackageRespon])
 async def list_packages(user_id: int = Query(...), db: Session = Depends(get_db)):
     packages = crud.get_packages(userId=user_id, db=db)
     if not isinstance(packages, list):
         raise HTTPException(status_code=422, detail="Expected a list of packages")
-    return packages
+    return crud.get_packages(userId=user_id, db=db)
 
 # @app.post("/cards/add-card",response_model=schemas.ResponseModel)
 # def add_card(card: schemas.Card,packageId: int, db: Session = Depends(get_db)):
@@ -136,7 +135,7 @@ def delete_all_cards(db: Session = Depends(get_db)):
     return {"message": "All cards deleted successfully"}
 
 # API xóa package
-@app.delete("/package/delete")
+@app.delete("/packages/delete")
 def delete_package(package_id: int, db: Session = Depends(get_db)):
     package = crud.get_package(db, package_id=package_id)
     if package is None:
