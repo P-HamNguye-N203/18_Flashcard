@@ -7,17 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const dataContainer = document.getElementById('dataContainer');
   const createCardForm = document.getElementById('createCardForm');
   const cardNameInput = document.getElementById('cardName');
-  const cardDescriptionInput = document.getElementById('cardDescription'); // Thêm phần tử mô tả thẻ
+  const cardDescriptionInput = document.getElementById('cardDescription');
+  const deleteAllButton = document.getElementById('deleteAllButton'); // Nút "Xóa tất cả"
 
   userButton.addEventListener('click', function() {
     dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
   });
 
   document.getElementById('backButton').addEventListener('click', function() {
-    window.location.href = '/FrontEnd/Flashcard/main_1.html'; // Update with correct path
+    window.location.href = '/FrontEnd/Flashcard/main_1.html';
   });
 
-  
   logoutButton.addEventListener('click', function(event) {
     event.preventDefault();
     window.location.href = '/FrontEnd/Flashcard/main.html';
@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
     createCard(cardNameInput.value.trim(), cardDescriptionInput.value.trim());
   });
 
-  // Function to perform search for cards
+  deleteAllButton.addEventListener('click', function() {
+    deleteAllCards();
+  });
+
   function performSearch(searchTerm) {
     const userId = localStorage.getItem('user_id');
     if (!userId) {
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(packages => {
         if (packages.length > 0) {
-          const packageId = localStorage.getItem('package_id'); // Đảm bảo bạn đang lưu package_id vào localStorage
+          const packageId = localStorage.getItem('package_id');
           if (!packageId) {
             console.error('Package ID not found. Please select a package.');
             return;
@@ -92,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  // Function to create a new card
   function createCard(cardName, cardDescription) {
     const packageId = localStorage.getItem('package_id');
     if (!packageId) {
@@ -103,12 +105,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const requestData = {
       ListCards: [
         {
-          id: 0, // Đặt ID là 0 để API tự sinh ra
-          Info: cardName, // Thông tin thẻ là tên đã nhập
-          Descrip: cardDescription // Mô tả thẻ là mô tả đã nhập
+          id: 0,
+          Info: cardName,
+          Descrip: cardDescription
         }
       ],
-      PackageId: packageId // PackageId từ localStorage
+      PackageId: packageId
     };
 
     fetch('http://127.0.0.1:8000/cards/create', {
@@ -129,14 +131,35 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log('Card created:', data);
-      performSearch(''); // Làm mới danh sách thẻ
+      performSearch('');
     })
     .catch(error => {
       console.error('Error creating card:', error);
     });
   }
 
-  // Function to display card data
+  function deleteAllCards() {
+    const packageId = localStorage.getItem('package_id');
+    if (!packageId) {
+      console.error('Package ID not found. Please select a package.');
+      return;
+    }
+
+    fetch(`http://127.0.0.1:8000/cards/delete-all?package_id=${packageId}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      console.log(`All cards in package ${packageId} deleted.`);
+      performSearch(''); // Refresh the card list
+    })
+    .catch(error => {
+      console.error('Error deleting all cards:', error);
+    });
+  }
+
   function displayData(records) {
     dataContainer.innerHTML = '';
 
@@ -172,5 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
-      performSearch('');
-    });
+
+  performSearch('');
+});

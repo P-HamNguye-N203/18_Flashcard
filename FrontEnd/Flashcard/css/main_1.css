@@ -333,19 +333,19 @@ max-width: 100%;
 }
 
 
-/* end info */
+/* Form tạo package */
 .create-package-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
+  position: fixed; /* Đặt form ở vị trí cố định */
+  bottom: 0; /* Cố định form ở phía dưới của trang */
+  left: 50%; /* Canh giữa form theo chiều ngang */
+  transform: translateX(-50%); /* Điều chỉnh vị trí để form nằm chính giữa */
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 300px; /* Đặt chiều rộng tối đa cho form */
-  margin: 0 auto; /* Đảm bảo form nằm giữa màn hình */
+  z-index: 1000; /* Đảm bảo form luôn ở trên cùng */
 }
 
 .create-package-form input[type="text"],
@@ -366,7 +366,69 @@ max-width: 100%;
 .create-package-form button:hover {
   background-color: #0056b3;
 }
+
 .create-package-form input[type="text"]::placeholder {
   color: #999;
 }
 
+/* Thêm padding bottom để tránh phần tử bị che khuất bởi form */
+.div-next {
+  padding-bottom: 120px; /* Điều chỉnh theo chiều cao của form */
+}
+
+/* Add this CSS to your stylesheet */
+.delete-button {
+  background-color: #ff4c4c;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-button:hover {
+  background-color: #d73737;
+}
+
+/* Add this CSS to your stylesheet */
+.edit-button {
+  background-color: #ff4c4c;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.edit-button:hover {
+  background-color: #d73737;
+}
+
+/* Add this CSS to your stylesheet */
+.view-package-button {
+  background-color: #ff4c4c;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.view-package-button:hover {
+  background-color: #d73737;
+}
