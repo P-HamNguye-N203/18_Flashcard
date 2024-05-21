@@ -43,6 +43,9 @@ class PackageRespon(BaseModel):
     Name: str
     id: int
 
+class PackageUpdate(BaseModel):
+    Name: Optional[str] = None
+
 class UserId(BaseModel):
     id: int
         
