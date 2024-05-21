@@ -121,6 +121,15 @@ def update_card(card_id: int, card: schemas.CardUpdate, db: Session = Depends(ge
         raise HTTPException(status_code=404, detail="Card not found")
     return updated_card
 
+# API chỉnh sửa thông tin package
+@app.put("/packages/update", response_model= schemas.PackageRespon)
+def update_package(package_id: int, package: schemas.PackageUpdate, db: Session = Depends(get_db)):
+    updated_package = crud.update_package(db=db, package_id=package_id, package=package)
+    if updated_package is None:
+        raise HTTPException(status_code=404, detail="Package not found")
+    return updated_package
+
+
 # API xóa card
 @app.delete("/cards/delete", response_model=schemas.ResponseModel)
 def delete_card(card_id: int, db: Session = Depends(get_db)):
@@ -129,20 +138,21 @@ def delete_card(card_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Card not found")
     return schemas.ResponseModel(Message="Card deleted successfully")
 
-# API xóa tất cả card
-@app.delete("/cards/delete_all", response_model=schemas.ResponseModel)
-def delete_all_cards(db: Session = Depends(get_db)):
-    crud.delete_all_cards(db=db)
-    return schemas.ResponseModel(Message="All cards deleted successfully")
+# API xóa tất cả card trong package
+@app.delete("/cards/delete-all", response_model=schemas.ResponseModel)
+def delete_all_card(package_id: int, db: Session = Depends(get_db)):
+    delete_card = crud.delete_all_card(db=db, package_id=package_id)
+    if delete_card is None:
+        raise HTTPException(status_code=404, detail="Card not found")
+    return schemas.ResponseModel(Message="Card deleted successfully")
 
 # API xóa package
 @app.delete("/packages/delete", response_model=schemas.ResponseModel)
 def delete_package(package_id: int, db: Session = Depends(get_db)):
-    package = crud.get_package(db, package_id=package_id)
-    if package is None:
+    delete_package = crud.delete_package(db=db, db_package=package_id)
+    if delete_package is None:
         raise HTTPException(status_code=404, detail="Package not found")
-    
-    crud.delete_package(db=db, db_package=package)
     return schemas.ResponseModel(Message="Package deleted successfully")
+
 
 

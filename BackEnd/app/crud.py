@@ -121,13 +121,23 @@ def delete_card(db: Session, card_id: int):
     db.commit()
     return db_card
 
-def delete_all_cards(db: Session):
-    db.query(Card).delete()
+def delete_all_cards(db: Session, package_id: int):
+    db_cards = db.query(Card).filter(Card.PackageId == package_id).all()
+    if db_cards is None:
+        return None
+    for card in db_cards:
+        db.delete(card)
     db.commit()
+    return db_cards
 
 def get_packages(userId: int, db: Session):
     return db.query(Package).filter(Package.UserId == userId).all()
 
-def delete_package(db: Session, db_package: Package):
+def delete_package(db: Session, package_id: int):
+    db_package = db.query(Package).filter(Package.id == package_id).first()
+    if db_package is None:
+        return None
+    
     db.delete(db_package)
     db.commit()
+    return db_package
