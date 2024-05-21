@@ -5,13 +5,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.querySelector('.combobox-listbox-search-la');
   const searchButton = document.getElementById('searchButton');
   const dataContainer = document.getElementById('dataContainer');
-  const createPackageForm = document.getElementById('createPackageForm');
-  const packageNameInput = document.getElementById('packageName');
+  const createCardForm = document.getElementById('createCardForm');
+  const cardNameInput = document.getElementById('cardName');
+  const cardDescriptionInput = document.getElementById('cardDescription'); // Thêm phần tử mô tả thẻ
 
   userButton.addEventListener('click', function() {
     dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
   });
 
+  document.getElementById('backButton').addEventListener('click', function() {
+    window.location.href = '/FrontEnd/Flashcard/main_1.html'; // Update with correct path
+  });
+
+  
   logoutButton.addEventListener('click', function(event) {
     event.preventDefault();
     window.location.href = '/FrontEnd/Flashcard/main.html';
@@ -28,11 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
     performSearch(searchTerm);
   });
 
-  createPackageForm.addEventListener('submit', function(event) {
+  createCardForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    createPackage(packageNameInput.value.trim());
+    createCard(cardNameInput.value.trim(), cardDescriptionInput.value.trim());
   });
 
+  // Function to perform search for cards
   function performSearch(searchTerm) {
     const userId = localStorage.getItem('user_id');
     if (!userId) {
@@ -47,36 +54,64 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return response.json();
       })
-      .then(data => {
-        console.log('Data received:', data);
-        let filteredRecords = [];
+      .then(packages => {
+        if (packages.length > 0) {
+          const packageId = localStorage.getItem('package_id'); // Đảm bảo bạn đang lưu package_id vào localStorage
+          if (!packageId) {
+            console.error('Package ID not found. Please select a package.');
+            return;
+          }
+          fetch(`http://127.0.0.1:8000/cards/listcard?package_id=${packageId}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log('Data received:', data);
+              let filteredRecords = [];
 
-        if (searchTerm) {
-          filteredRecords = data.filter(record => record.Name.toLowerCase().includes(searchTerm.toLowerCase()));
+              if (searchTerm) {
+                filteredRecords = data.filter(record => record.Info.toLowerCase().includes(searchTerm.toLowerCase()));
+              } else {
+                filteredRecords = data;
+              }
+
+              displayData(filteredRecords);
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
         } else {
-          filteredRecords = data;
+          console.log('No packages found for the user.');
         }
-
-        displayData(filteredRecords);
       })
       .catch(error => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching packages:', error);
       });
   }
 
-  function createPackage(packageName) {
-    const userId = localStorage.getItem('user_id');
-    if (!userId) {
-      console.error('User ID not found. Please log in.');
+  // Function to create a new card
+  function createCard(cardName, cardDescription) {
+    const packageId = localStorage.getItem('package_id');
+    if (!packageId) {
+      console.error('Package ID not found. Please select a package.');
       return;
     }
 
     const requestData = {
-      UserId: userId, // Add UserId to the request data
-      Name: packageName
+      ListCards: [
+        {
+          id: 0, // Đặt ID là 0 để API tự sinh ra
+          Info: cardName, // Thông tin thẻ là tên đã nhập
+          Descrip: cardDescription // Mô tả thẻ là mô tả đã nhập
+        }
+      ],
+      PackageId: packageId // PackageId từ localStorage
     };
 
-    fetch('http://127.0.0.1:8000/packages/create', {
+    fetch('http://127.0.0.1:8000/cards/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -87,21 +122,21 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!response.ok) {
         return response.json().then(errorData => {
           console.error('Error details:', errorData);
-          throw new Error(`Failed to create package: ${JSON.stringify(errorData)}`);
+          throw new Error(`Failed to create card: ${JSON.stringify(errorData)}`);
         });
       }
       return response.json();
     })
     .then(data => {
-      console.log('Package created:', data);
-      localStorage.setItem('package_id', data.id); // Store the created package_id in localStorage
-      performSearch(''); // Refresh the package list
+      console.log('Card created:', data);
+      performSearch(''); // Làm mới danh sách thẻ
     })
     .catch(error => {
-      console.error('Error creating package:', error);
+      console.error('Error creating card:', error);
     });
   }
 
+  // Function to display card data
   function displayData(records) {
     dataContainer.innerHTML = '';
 
@@ -119,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
       dataContainer.appendChild(noResultsMessage);
     } else {
       records.forEach(record => {
-        const name = record.Name;
+        const name = record.Info;
+        const description = record.Descrip;
 
         const nameBox = document.createElement('div');
         nameBox.classList.add('nameBox');
@@ -127,17 +163,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const nameElement = document.createElement('p');
         nameElement.textContent = name;
 
-        nameBox.appendChild(nameElement);
-        dataContainer.appendChild(nameBox);
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = description;
 
-        // Add click event to store the package_id and navigate to package page
-        nameBox.addEventListener('click', function() {
-          localStorage.setItem('package_id', record.id); // Store the package_id in localStorage
-          window.location.href = '/FrontEnd/Flashcard/package.html';
-        });
+        nameBox.appendChild(nameElement);
+        nameBox.appendChild(descriptionElement);
+        dataContainer.appendChild(nameBox);
       });
     }
   }
-
-  performSearch('');
-});
+      performSearch('');
+    });
