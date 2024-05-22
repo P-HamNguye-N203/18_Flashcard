@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   logoutButton.addEventListener('click', function(event) {
     event.preventDefault();
-    window.location.href = '/FrontEnd/Flashcard/main_1.html';
+    window.location.href = '/FrontEnd/Flashcard/main.html';
   });
 
   document.addEventListener('click', function(event) {
@@ -165,23 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Hàm xóa card
-function deleteCard(cardId) {
-  fetch(`http://127.0.0.1:8000/cards/delete?card_id=${cardId}`, {
-    method: 'DELETE'
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    console.log(`Card with ID ${cardId} deleted.`);
-    performSearch(''); // Refresh the card list
-  })
-  .catch(error => {
-    console.error('Error deleting card:', error);
-  });
-}
-
   function displayData(records) {
     dataContainer.innerHTML = '';
 
@@ -201,7 +184,6 @@ function deleteCard(cardId) {
       records.forEach(record => {
         const name = record.Info;
         const description = record.Descrip;
-        const cardId = record.id; // Lấy card_id từ dữ liệu
 
         const nameBox = document.createElement('div');
         nameBox.classList.add('nameBox');
@@ -212,16 +194,8 @@ function deleteCard(cardId) {
         const descriptionElement = document.createElement('p');
         descriptionElement.textContent = description;
 
-        // Tạo nút xóa card và gắn sự kiện click
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.addEventListener('click', function() {
-          deleteCard(cardId); // Gọi hàm xóa card khi nút được click
-        });
-
         nameBox.appendChild(nameElement);
         nameBox.appendChild(descriptionElement);
-        nameBox.appendChild(deleteButton); // Thêm nút xóa vào nameBox
         dataContainer.appendChild(nameBox);
       });
     }
