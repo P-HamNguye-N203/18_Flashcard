@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#flashcard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.flashcard {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(25% - 10px); /* 25% width for each card with 10px gap between cards */
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.flashcard.hidden {
+    visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Màu xanh cho thẻ đúng */
+green {
+    background-color: #00FF00;
+}
+
+/* Màu đỏ cho thẻ sai */
+#FF0000 {
+    background-color: #FF0000;
+}

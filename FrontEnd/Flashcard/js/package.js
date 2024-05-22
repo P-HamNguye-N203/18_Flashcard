@@ -48,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = '/FrontEnd/Flashcard/play.html';
   });
 
+  playButton_1.addEventListener('click', function() { // Event listener for Play button
+    window.location.href = '/FrontEnd/Flashcard/game.html';
+  });
+
   function performSearch(searchTerm) {
     const userId = localStorage.getItem('user_id');
     if (!userId) {
