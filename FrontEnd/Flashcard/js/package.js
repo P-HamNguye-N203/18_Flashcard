@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const createCardForm = document.getElementById('createCardForm');
   const cardNameInput = document.getElementById('cardName');
   const cardDescriptionInput = document.getElementById('cardDescription');
-  const deleteAllButton = document.getElementById('deleteAllButton'); // Nút "Xóa tất cả"
+  const deleteAllButton = document.getElementById('deleteAllButton');
+  const playButton = document.getElementById('playButton'); // New Play button
 
   userButton.addEventListener('click', function() {
     dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
@@ -41,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   deleteAllButton.addEventListener('click', function() {
     deleteAllCards();
+  });
+
+  playButton.addEventListener('click', function() { // Event listener for Play button
+    window.location.href = '/FrontEnd/Flashcard/play.html';
   });
 
   function performSearch(searchTerm) {
