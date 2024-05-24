@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Kiểm tra email hợp lệ
     function checkEmail(input) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (re.test(input.value.trim())) {
             showSuccess(input);
@@ -94,9 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (response.ok) {
+                console.log('User created successfully, preparing to redirect'); // Debug statement
+                window.location.href = '/FrontEnd/Flashcard/login.html'; // Redirect to login page
+                console.log('Redirection code executed'); // Debug statement
                 alert('Tạo người dùng thành công');
-                // Tùy chọn, chuyển hướng đến trang khác
-                // window.location.href = 'your-redirect-url.html';
             } else {
                 const data = await response.json();
                 console.error('Response error data:', data); // Debug statement
@@ -119,8 +120,13 @@ document.addEventListener('DOMContentLoaded', function () {
             checkLength(password, 6, 25);
             checkEmail(email);
             if (checkPasswordsMatch(password, password2)) {
+                console.log('All validations passed, submitting form'); // Debug statement
                 submitFormData();
+            } else {
+                console.log('Password mismatch'); // Debug statement
             }
+        } else {
+            console.log('Required fields missing'); // Debug statement
         }
     });
 });

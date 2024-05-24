@@ -8,38 +8,42 @@ document.addEventListener('DOMContentLoaded', function() {
   const createPackageForm = document.getElementById('createPackageForm');
   const packageNameInput = document.getElementById('packageName');
 
+  // Chuyển đổi hiển thị menu dropdown
   userButton.addEventListener('click', function() {
     dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
   });
 
+  // Chuyển hướng đến trang chính khi đăng xuất
   logoutButton.addEventListener('click', function(event) {
     event.preventDefault();
     window.location.href = '/FrontEnd/Flashcard/main.html';
   });
 
+  // Đóng menu dropdown khi nhấn chuột bên ngoài
   document.addEventListener('click', function(event) {
     if (!userButton.contains(event.target) && !dropdownContent.contains(event.target)) {
       dropdownContent.style.display = 'none';
     }
   });
 
+  // Thực hiện tìm kiếm khi nút tìm kiếm được nhấn
   searchButton.addEventListener('click', function() {
     const searchTerm = searchInput.value.trim();
     performSearch(searchTerm);
   });
 
+  // Xử lý sự kiện khi biểu mẫu tạo gói dữ liệu được gửi đi
   createPackageForm.addEventListener('submit', function(event) {
     event.preventDefault();
     createPackage(packageNameInput.value.trim());
   });
-
+  // Hàm thực hiện tìm kiếm gói dữ liệu
   function performSearch(searchTerm) {
     const userId = localStorage.getItem('user_id');
     if (!userId) {
       console.error('User ID not found. Please log in.');
       return;
     }
-
     fetch(`http://127.0.0.1:8000/packages/listpackage?user_id=${userId}`)
       .then(response => {
         if (!response.ok) {
