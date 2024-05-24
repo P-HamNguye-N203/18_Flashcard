@@ -146,6 +146,7 @@ def get_packages(userId: int, db: Session):
     return db.query(Package).filter(Package.UserId == userId).all()
 
 def delete_package(db: Session, package_id: int):
+    delete_all_cards(db, package_id)
     db_package = db.query(Package).filter(Package.id == package_id).first()
     if db_package is None:
         return None
