@@ -112,8 +112,8 @@
   max-width: 100%;
 }
 .header {
-  background-color: var(--FlashStudy-nero);
-  border-bottom: 1.1px solid var(--FlashStudy-athens-gray);
+  background-color: var(--FlashStudy-buddha-gold);
+  border-bottom: 1.1px solid var(--FlashStudy-buddha-gold);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -147,7 +147,7 @@
   width: 100%;
   height: 1024px;
   position: relative;
-  background-color: var(--FlashStudy-white-lilac);
+  background-color: var(--FlashStudy-buddha-gold);
   flex-direction: row;
   padding: 0;
   line-height: normal;
@@ -267,41 +267,6 @@ max-width: 100%;
 
 /* end search */
 
-/* info */
-/* CSS cho các phần tử được tạo động */
-.article {
-  margin: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 250px;
-  transition: transform 0.3s ease;
-  text-align: left; /* Căn lề văn bản sang trái */
-}
-
-.article:hover {
-  transform: translateY(-5px);
-}
-
-.article h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.article h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.article p {
-  font-size: 16px;
-  color: #666;
-}
-
-
 /* Định dạng cho container chứa các phần tử */
 #dataContainer {
   display: flex;
@@ -309,27 +274,32 @@ max-width: 100%;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f3f3f3;
+  background-color:var(--FlashStudy-buddha-gold);
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 50px;
 }
 
 .nameBox {
-  width: 250px;
-  margin: 10px;
-  padding: 15px;
-  border: 1px solid #030303;
-  border-radius: 8px;
-  background-color: #eaeaea; /* Thay đổi màu nền */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-  text-align: center;
-  transition: transform 0.3s ease;
+  max-width: 500px; /* Adjusted width to match card */
+  min-height: 200px; /* Adjusted height to match card */
+  padding: 35px; /* Adjusted padding to match card */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* Adjusted border to match card */
+  border-radius: 20px; /* Adjusted border-radius to match card */
+  background-color: rgba(255, 255, 255, 0.45); /* Adjusted background color to match card */
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25); /* Adjusted box-shadow to match card */
+  backdrop-filter: blur(15px); /* Added backdrop-filter to match card */
+  display: flex; /* Ensured the display style is flex */
+  flex-direction: column; /* Ensured flex-direction is column */
+  justify-content: space-between; /* Ensured content is spaced between */
+  margin: 10px; /* Retained margin */
+  text-align: center; /* Retained text alignment */
+  transition: transform 0.3s ease; /* Retained transition */
 }
 
 .nameBox:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Đổi màu đổ bóng khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjusted hover box-shadow */
 }
 
 .nameBox h2 {
@@ -355,12 +325,12 @@ max-width: 100%;
   bottom: 0; /* Cố định form ở phía dưới của trang */
   left: 50%; /* Canh giữa form theo chiều ngang */
   transform: translateX(-50%); /* Điều chỉnh vị trí để form nằm chính giữa */
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.45);
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 300px; /* Đặt chiều rộng tối đa cho form */
+  width: 350px; /* Đặt chiều rộng tối đa cho form */
   z-index: 1000; /* Đảm bảo form luôn ở trên cùng */
 }
 
@@ -436,7 +406,7 @@ max-width: 100%;
   border: none;
   color: white;
   padding: 5px 10px;
-  text-align: center;
+  text-align: center; 
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
