@@ -268,7 +268,17 @@ max-width: 100%;
 /* end search */
 
 /* Định dạng cho container chứa các phần tử */
-
+#dataContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(184, 224, 240);
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
 
 /* Định dạng cho từng ô chứa tên */
 .nameBox {
