@@ -112,8 +112,8 @@
   max-width: 100%;
 }
 .header {
-  background-color: var(--FlashStudy-nero);
-  border-bottom: 1.1px solid var(--FlashStudy-athens-gray);
+  background-color: var(--FlashStudy-buddha-gold);
+  border-bottom: 1.1px solid var(--FlashStudy-buddha-gold);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -147,7 +147,7 @@
   width: 100%;
   height: 1024px;
   position: relative;
-  background-color: var(--FlashStudy-white-lilac);
+  background-color: var(--FlashStudy-buddha-gold);
   flex-direction: row;
   padding: 0;
   line-height: normal;
@@ -267,43 +267,6 @@ max-width: 100%;
 
 /* end search */
 
-/* info */
-/* CSS cho các phần tử được tạo động */
-.article {
-  margin: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 250px;
-  transition: transform 0.3s ease;
-  text-align: left; /* Căn lề văn bản sang trái */
-}
-
-.article:hover {
-  transform: translateY(-5px);
-}
-
-.article h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.article h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.article p {
-  font-size: 16px;
-  color: #666;
-}
-
-
-
-
 /* Định dạng cho container chứa các phần tử */
 #dataContainer {
   display: flex;
@@ -311,29 +274,33 @@ max-width: 100%;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f3f3f3;
+  background-color: var(--FlashStudy-buddha-gold);
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 50px;
 }
 
 /* Định dạng cho từng ô chứa tên */
-/* Định dạng cho từng ô chứa tên */
 .nameBox {
-  width: 250px;
+  max-width: 500px;
+  min-height: 200px;
+  padding: 35px;
+  border: 1px solid #ccc; /* Viền màu xám đậm hơn */
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Màu trắng với độ trong suốt */
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 10px;
-  padding: 15px;
-  border: 1px solid #030303;
-  border-radius: 8px;
-  background-color: #ddd; /* Thay đổi màu nền */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
   text-align: center;
   transition: transform 0.3s ease;
 }
 
 .nameBox:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Đổi màu đổ bóng khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .nameBox h2 {
@@ -359,7 +326,7 @@ max-width: 100%;
   transform: translateX(-50%);
   bottom: 20px; /* Điều chỉnh vị trí dưới cùng của trang */
   padding: 20px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.45);
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
