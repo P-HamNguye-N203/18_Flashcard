@@ -169,22 +169,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-// Hàm xóa card
-function deleteCard(cardId) {
-  fetch(`http://127.0.0.1:8000/cards/delete?card_id=${cardId}`, {
-    method: 'DELETE'
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    console.log(`Card with ID ${cardId} deleted.`);
-    performSearch(''); // Refresh the card list
-  })
-  .catch(error => {
-    console.error('Error deleting card:', error);
-  });
-}
+  function deleteCard(cardId) {
+    fetch(`http://127.0.0.1:8000/cards/delete?card_id=${cardId}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      console.log(`Card with ID ${cardId} deleted.`);
+      performSearch(''); // Refresh the card list
+    })
+    .catch(error => {
+      console.error('Error deleting card:', error);
+    });
+  }
+
+  function updateCard(cardId, newCardName, newCardDescription, nameElement, descriptionElement) {
+    fetch(`http://127.0.0.1:8000/cards/update?card_id=${cardId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ Info: newCardName, Descrip: newCardDescription })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Update response:', data);
+      nameElement.textContent = newCardName;
+      descriptionElement.textContent = newCardDescription;
+    })
+    .catch(error => console.error('Failed to update card:', error));
+  }
 
   function displayData(records) {
     dataContainer.innerHTML = '';
@@ -221,10 +237,27 @@ function deleteCard(cardId) {
         deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', function() {
           deleteCard(cardId); // Gọi hàm xóa card khi nút được click
-        }); 
+        });
+
+        // Tạo nút edit card và gắn sự kiện click
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', function() {
+          if (editButton.textContent === 'Edit') {
+            nameElement.innerHTML = `<input type='text' value='${nameElement.textContent}' class='edit-input'>`;
+            descriptionElement.innerHTML = `<input type='text' value='${descriptionElement.textContent}' class='edit-input'>`;
+            editButton.textContent = 'Save';
+          } else {
+            const newName = nameElement.querySelector('input').value;
+            const newDescription = descriptionElement.querySelector('input').value;
+            updateCard(cardId, newName, newDescription, nameElement, descriptionElement);
+            editButton.textContent = 'Edit';
+          }
+        });
 
         nameBox.appendChild(nameElement);
         nameBox.appendChild(descriptionElement);
+        nameBox.appendChild(editButton); // Thêm nút edit vào nameBox
         nameBox.appendChild(deleteButton); // Thêm nút xóa vào nameBox
         dataContainer.appendChild(nameBox);
       });
