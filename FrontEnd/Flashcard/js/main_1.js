@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const userButton = document.getElementById('userButton');
   const dropdownContent = document.querySelector('.dropdown-content');
   const logoutButton = document.getElementById('logoutButton');
+  const changePasswordButton = document.getElementById('changePasswordButton');
   const searchInput = document.querySelector('.combobox-listbox-search-la');
   const searchButton = document.getElementById('searchButton');
   const dataContainer = document.getElementById('dataContainer');
@@ -25,6 +26,52 @@ document.addEventListener('DOMContentLoaded', function() {
       dropdownContent.style.display = 'none';
     }
   });
+
+  // Đổi mật khẩu
+  changePasswordButton.addEventListener('click', function(event) {
+    event.preventDefault(); 
+    const newPassword = prompt('Enter your new password:');
+    if (newPassword) {
+        const confirmPassword = prompt('Confirm your new password:');
+        if (confirmPassword) {
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+            }
+            if (!isPasswordValid(newPassword)) {
+                alert('Password does not meet the common requirements. Please try again.');
+                return; 
+            }
+            const userId = localStorage.getItem('user_id');
+            if (!userId) {
+                console.error('User ID not found. Please log in.');
+                return;
+            }
+            fetch(`http://127.0.0.1:8000/users/update?user_id=${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ Password: newPassword })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to change password: ${response.statusText}`);
+                }
+                console.log('Password changed successfully.');
+                alert('Password changed successfully.'); 
+            })
+            .catch(error => {
+                console.error('Error changing password:', error);
+                alert('Error changing password. Please try again.'); 
+            });
+        }
+    }
+  });
+
+  // Hàm điều kiện 
+  function isPasswordValid(password) {
+    return password.length >= 8;
+  }
 
   // Thực hiện tìm kiếm khi nút tìm kiếm được nhấn
   searchButton.addEventListener('click', function() {
@@ -76,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const requestData = {
-      UserId: userId, // Add UserId to the request data
+      UserId: userId, 
       Name: packageName
     };
 
@@ -98,8 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log('Package created:', data);
-      localStorage.setItem('package_id', data.id); // Store the created package_id in localStorage
-      performSearch(''); // Refresh the package list
+      localStorage.setItem('package_id', data.id); 
+      performSearch(''); 
     })
     .catch(error => {
       console.error('Error creating package:', error);
