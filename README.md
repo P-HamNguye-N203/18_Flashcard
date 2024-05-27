@@ -48,9 +48,9 @@ $ uvicorn app.main:app --reload
 │       ├──login        // file html  cho trang login
 │       |──signup       // file html  cho trang signup
 │       |──main_1       // file html  cho trang chính
-│       |──package       // file html  cho trang card
-│       |──play       // file html  cho trang học flashcard
-│       |──game       // file html  cho trang chơi game
+│       |──package      // file html  cho trang card
+│       |──play         // file html  cho trang học flashcard
+│       |──game         // file html  cho trang chơi game
 │       ├──css          // chứa các file css
 │       ├──js           // chứa các file js
 │       └──image        // chứa các file image
