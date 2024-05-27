@@ -1,6 +1,7 @@
 # PTUD_CK
 
 ## Tên ứng dụng
+
 ```
 - Trang wed có tên là Learn Quickly
 
@@ -43,9 +44,13 @@ $ uvicorn app.main:app --reload
 │   └── requirements.txt    // file chứa các thư viện để cài đặt qua pip install
 ├── FrontEnd
 │   └──Flashcard
-│       ├──main         // file html trang chính
+│       ├──main         // file html trang đăng nhập
 │       ├──login        // file html  cho trang login
 │       |──signup       // file html  cho trang signup
+│       |──main_1       // file html  cho trang chính
+│       |──package       // file html  cho trang card
+│       |──play       // file html  cho trang học flashcard
+│       |──game       // file html  cho trang chơi game
 │       ├──css          // chứa các file css
 │       ├──js           // chứa các file js
 │       └──image        // chứa các file image
@@ -54,6 +59,7 @@ $ uvicorn app.main:app --reload
 ```
 
 ## THÔNG TIN THÀNH VIÊN
+
 ```
 - 21071061 - Trần Quang Vinh
 - 21074741 - Hoàng Ngọc Tân
@@ -63,6 +69,7 @@ $ uvicorn app.main:app --reload
 ```
 
 ## TRÁCH NHIỆM
+
 ```
 - Trần Quang Vinh:
     - Code Frontend
