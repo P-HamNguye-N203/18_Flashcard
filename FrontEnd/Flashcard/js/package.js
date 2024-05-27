@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const userButton = document.getElementById('userButton');
   const dropdownContent = document.querySelector('.dropdown-content');
   const logoutButton = document.getElementById('logoutButton');
+  const changePasswordButton = document.getElementById('changePasswordButton');
   const searchInput = document.querySelector('.combobox-listbox-search-la');
   const searchButton = document.getElementById('searchButton');
   const dataContainer = document.getElementById('dataContainer');
@@ -51,6 +52,54 @@ document.addEventListener('DOMContentLoaded', function() {
   playButton_1.addEventListener('click', function() { // Event listener for Play button
     window.location.href = '/FrontEnd/Flashcard/game.html';
   });
+
+
+// Đổi mật khẩu
+changePasswordButton.addEventListener('click', function(event) {
+  event.preventDefault(); 
+  const newPassword = prompt('Enter your new password:');
+  if (newPassword) {
+      const confirmPassword = prompt('Confirm your new password:');
+      if (confirmPassword) {
+          // Check if the passwords match
+          if (newPassword !== confirmPassword) {
+              alert('Passwords do not match. Please try again.');
+              return;
+          }
+          if (!isPasswordValid(newPassword)) {
+              alert('Password does not meet the common requirements. Please try again.');
+              return; 
+          }
+          const userId = localStorage.getItem('user_id');
+          if (!userId) {
+              console.error('User ID not found. Please log in.');
+              return;
+          }
+          fetch(`http://127.0.0.1:8000/users/update?user_id=${userId}`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ Password: newPassword })
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`Failed to change password: ${response.statusText}`);
+              }
+              console.log('Password changed successfully.');
+              alert('Password changed successfully.');
+          })
+          .catch(error => {
+              console.error('Error changing password:', error);
+              alert('Error changing password. Please try again.');
+          });
+      }
+  }
+});
+
+function isPasswordValid(password) {
+  return password.length >= 8;
+}
 
   function performSearch(searchTerm) {
     const userId = localStorage.getItem('user_id');
@@ -162,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       console.log(`All cards in package ${packageId} deleted.`);
-      performSearch(''); // Refresh the card list
+      performSearch('');
     })
     .catch(error => {
       console.error('Error deleting all cards:', error);
@@ -178,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       console.log(`Card with ID ${cardId} deleted.`);
-      performSearch(''); // Refresh the card list
+      performSearch('');
     })
     .catch(error => {
       console.error('Error deleting card:', error);
