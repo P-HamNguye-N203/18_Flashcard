@@ -14,10 +14,10 @@
 - Mỗi flashcard sẽ hiển thị thông tin một cách rõ ràng, dễ hiểu để tăng cường trải nghiệm học tập. Ngoài việc học lý thuyết, người dùng cũng có thể kiểm tra kiến thức của mình thông qua trò chơi được tích hợp trên trang web.
 
 - Một số sceenshot của ứng dụng
-Trang đăng kí - đăng nhập : ![alt text](image.png)
-Trang tạo package : ![alt text](image-1.png)
-Trang tạo Card : ![alt text](image-2.png)
-Trang chơi trò chơi : ![alt text](image-3.png)
+Trang đăng kí - đăng nhập : ![alt text](F:\PTUD_CK\Trang_SignUp_LogIn.png)
+Trang tạo package : ![alt text](F:\PTUD_CK\Trang_AddPackage.png)
+Trang tạo Card : ![alt text](F:\PTUD_CK\Trang_AddCard.png)
+Trang chơi trò chơi : ![alt text](F:\PTUD_CK\Trang_PlayGame.png)
 
 ```
 
