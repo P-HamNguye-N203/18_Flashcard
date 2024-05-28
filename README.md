@@ -11,9 +11,13 @@
 
 - Trang wed hướng đến đối tượng là học sinh, sinh viên, những người cần học trong thời gian ngắn, cần ghi chú những công thức cần nhớ
 
-- Mỗi flashcard sẽ hiển thị thông tin một cách rõ ràng, dễ hiểu, và thậm chí có hỗ trợ hình ảnh để tăng cường trải nghiệm học tập. Ngoài việc học lý thuyết, người dùng cũng có thể kiểm tra kiến thức của mình thông qua các bài kiểm tra được tích hợp trên trang web.
+- Mỗi flashcard sẽ hiển thị thông tin một cách rõ ràng, dễ hiểu để tăng cường trải nghiệm học tập. Ngoài việc học lý thuyết, người dùng cũng có thể kiểm tra kiến thức của mình thông qua trò chơi được tích hợp trên trang web.
 
 - Một số sceenshot của ứng dụng
+Trang đăng kí - đăng nhập : ![alt text](image.png)
+Trang tạo package : ![alt text](image-1.png)
+Trang tạo Card : ![alt text](image-2.png)
+Trang chơi trò chơi : ![alt text](image-3.png)
 
 ```
 
